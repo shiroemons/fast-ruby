@@ -1381,24 +1381,23 @@ Comparison:
 
 ```
 $ ruby -v code/range/cover-vs-include.rb
-ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-linux]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+        range#cover?   340.405k i/100ms
+      range#include?    10.765k i/100ms
+       range#member?    11.166k i/100ms
+       plain compare   512.851k i/100ms
 Calculating -------------------------------------
-        range#cover?    85.467k i/100ms
-      range#include?     7.720k i/100ms
-       range#member?     7.783k i/100ms
-       plain compare   102.189k i/100ms
--------------------------------------------------
-        range#cover?      1.816M (± 5.6%) i/s -      9.060M
-      range#include?     83.344k (± 5.0%) i/s -    416.880k
-       range#member?     82.654k (± 5.0%) i/s -    412.499k
-       plain compare      2.581M (± 6.2%) i/s -     12.876M
+        range#cover?      3.596M (± 3.1%) i/s -     18.041M in   5.022927s
+      range#include?    115.315k (± 1.7%) i/s -    581.310k in   5.042509s
+       range#member?    111.040k (± 5.6%) i/s -    558.300k in   5.045031s
+       plain compare      5.102M (± 3.5%) i/s -     25.643M in   5.031945s
 
 Comparison:
-       plain compare:  2581211.8 i/s
-        range#cover?:  1816038.5 i/s - 1.42x slower
-      range#include?:    83343.9 i/s - 30.97x slower
-       range#member?:    82654.1 i/s - 31.23x slower
+       plain compare:  5102493.6 i/s
+        range#cover?:  3595594.7 i/s - 1.42x  (± 0.00) slower
+      range#include?:   115314.9 i/s - 44.25x  (± 0.00) slower
+       range#member?:   111040.0 i/s - 45.95x  (± 0.00) slower
 ```
 
 
