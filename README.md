@@ -62,20 +62,19 @@ Idioms
 
 ```
 $ ruby -v code/general/assignment.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+ Parallel Assignment     1.251M i/100ms
+Sequential Assignment
+                         1.425M i/100ms
 Calculating -------------------------------------
- Parallel Assignment   149.201k i/100ms
+ Parallel Assignment     12.956M (± 2.2%) i/s -     65.073M in   5.025057s
 Sequential Assignment
-                       142.545k i/100ms
--------------------------------------------------
- Parallel Assignment      7.687M (± 6.9%) i/s -     38.345M
-Sequential Assignment
-                          6.320M (± 8.5%) i/s -     31.360M
+                         14.181M (± 1.9%) i/s -     71.272M in   5.027618s
 
 Comparison:
- Parallel Assignment:  7686954.1 i/s
-Sequential Assignment:  6320425.6 i/s - 1.22x slower
+Sequential Assignment: 14181302.4 i/s
+ Parallel Assignment: 12956114.2 i/s - 1.09x  (± 0.00) slower
 ```
 
 ##### `attr_accessor` vs `getter and setter` [code](code/general/attr-accessor-vs-getter-and-setter.rb)
@@ -84,53 +83,53 @@ Sequential Assignment:  6320425.6 i/s - 1.22x slower
 
 ```
 $ ruby -v code/general/attr-accessor-vs-getter-and-setter.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+   getter_and_setter   432.793k i/100ms
+       attr_accessor   464.242k i/100ms
 Calculating -------------------------------------
-   getter_and_setter    61.240k i/100ms
-       attr_accessor    66.535k i/100ms
--------------------------------------------------
-   getter_and_setter      1.660M (± 9.7%) i/s -      8.267M
-       attr_accessor      1.865M (± 9.2%) i/s -      9.248M
+   getter_and_setter      4.344M (± 2.2%) i/s -     22.072M in   5.083093s
+       attr_accessor      4.608M (± 2.3%) i/s -     23.212M in   5.039994s
 
 Comparison:
-       attr_accessor:  1865408.4 i/s
-   getter_and_setter:  1660021.9 i/s - 1.12x slower
+       attr_accessor:  4608203.3 i/s
+   getter_and_setter:  4344441.0 i/s - 1.06x  (± 0.00) slower
 ```
 
 ##### `begin...rescue` vs `respond_to?` for Control Flow [code](code/general/begin-rescue-vs-respond-to.rb)
 
 ```
 $ ruby -v code/general/begin-rescue-vs-respond-to.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+      begin...rescue    75.242k i/100ms
+         respond_to?   902.958k i/100ms
 Calculating -------------------------------------
-      begin...rescue    29.452k i/100ms
-         respond_to?   106.528k i/100ms
--------------------------------------------------
-      begin...rescue    371.591k (± 5.4%) i/s -      1.855M
-         respond_to?      3.277M (± 7.5%) i/s -     16.299M
+      begin...rescue    777.654k (± 4.5%) i/s -      3.913M in   5.042124s
+         respond_to?      9.096M (± 2.4%) i/s -     46.051M in   5.065423s
 
 Comparison:
-         respond_to?:  3276972.3 i/s
-      begin...rescue:   371591.0 i/s - 8.82x slower
+         respond_to?:  9096344.5 i/s
+      begin...rescue:   777653.7 i/s - 11.70x  (± 0.00) slower
 ```
 
 ##### `define_method` vs `module_eval` for Defining Methods [code](code/general/define_method-vs-module-eval.rb)
 
 ```
 $ ruby -v code/general/define_method-vs-module-eval.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+module_eval with string
+                       241.000  i/100ms
+       define_method   398.000  i/100ms
 Calculating -------------------------------------
-module_eval with string 125.000  i/100ms
-       define_method    138.000  i/100ms
--------------------------------------------------
-module_eval with string   1.130k (±20.3%) i/s -      5.500k
-       define_method      1.346k (±25.9%) i/s -      6.348k
+module_eval with string
+                          2.321k (±16.6%) i/s -     11.086k in   5.017325s
+       define_method      3.461k (±19.4%) i/s -     16.318k in   5.084691s
 
 Comparison:
-       define_method:        1345.6 i/s
-module_eval with string:     1129.7 i/s - 1.19x slower
+       define_method:     3461.4 i/s
+module_eval with string:     2320.9 i/s - 1.49x  (± 0.00) slower
 ```
 
 ##### `raise` vs `E2MM#Raise` for raising (and defining) exeptions  [code](code/general/raise-vs-e2mmap.rb)
@@ -139,72 +138,70 @@ Ruby's [Exception2MessageMapper module](http://ruby-doc.org/stdlib-2.2.0/libdoc/
 
 ```
 $ ruby -v code/general/raise-vs-e2mmap.rb
-ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Ruby exception: E2MM#Raise
+                         2.539k i/100ms
+Ruby exception: Kernel#raise
+                       106.849k i/100ms
 Calculating -------------------------------------
 Ruby exception: E2MM#Raise
-                         2.865k i/100ms
+                         27.353k (± 4.0%) i/s -    137.106k in   5.020854s
 Ruby exception: Kernel#raise
-                        42.215k i/100ms
--------------------------------------------------
-Ruby exception: E2MM#Raise
-                         27.270k (± 8.8%) i/s -    137.520k
-Ruby exception: Kernel#raise
-                        617.446k (± 7.9%) i/s -      3.082M
+                        990.200k (± 5.0%) i/s -      5.022M in   5.084115s
 
 Comparison:
-Ruby exception: Kernel#raise:   617446.2 i/s
-Ruby exception: E2MM#Raise:    27269.8 i/s - 22.64x slower
+Ruby exception: Kernel#raise:   990199.7 i/s
+Ruby exception: E2MM#Raise:    27353.0 i/s - 36.20x  (± 0.00) slower
 
+Warming up --------------------------------------
+Custom exception: E2MM#Raise
+                         2.708k i/100ms
+Custom exception: Kernel#raise
+                       106.628k i/100ms
 Calculating -------------------------------------
 Custom exception: E2MM#Raise
-                         2.807k i/100ms
+                         25.470k (± 6.1%) i/s -    127.276k in   5.016119s
 Custom exception: Kernel#raise
-                        45.313k i/100ms
--------------------------------------------------
-Custom exception: E2MM#Raise
-                         29.005k (± 7.2%) i/s -    145.964k
-Custom exception: Kernel#raise
-                        589.149k (± 7.8%) i/s -      2.945M
+                          1.033M (± 5.2%) i/s -      5.225M in   5.074212s
 
 Comparison:
-Custom exception: Kernel#raise:   589148.7 i/s
-Custom exception: E2MM#Raise:    29004.8 i/s - 20.31x slower
+Custom exception: Kernel#raise:  1032547.1 i/s
+Custom exception: E2MM#Raise:    25469.8 i/s - 40.54x  (± 0.00) slower
 ```
 
 ##### `loop` vs `while true` [code](code/general/loop-vs-while-true.rb)
 
 ```
 $ ruby -v code/general/loop-vs-while-true.rb
-ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-linux]
-
-Calculating -------------------------------------
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
           While Loop     1.000  i/100ms
          Kernel loop     1.000  i/100ms
--------------------------------------------------
-          While Loop      0.536  (± 0.0%) i/s -      3.000  in   5.593042s
-         Kernel loop      0.223  (± 0.0%) i/s -      2.000  in   8.982355s
+Calculating -------------------------------------
+          While Loop      0.830  (± 0.0%) i/s -      5.000  in   6.043920s
+         Kernel loop      0.257  (± 0.0%) i/s -      2.000  in   7.784515s
 
 Comparison:
-          While Loop:        0.5 i/s
-         Kernel loop:        0.2 i/s - 2.41x slower
+          While Loop:        0.8 i/s
+         Kernel loop:        0.3 i/s - 3.23x  (± 0.00) slower
 ```
 
 ##### `ancestors.include?` vs `<=` [code](code/general/inheritance-check.rb)
 
 ```
 $ ruby -vW0 code/general/inheritance-check.rb
-ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-linux]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-  less than or equal    66.992k i/100ms
-  ancestors.include?    16.943k i/100ms
+  less than or equal   581.926k i/100ms
+  ancestors.include?   111.193k i/100ms
 Calculating -------------------------------------
-  less than or equal      1.250M (± 6.4%) i/s -      6.230M in   5.006896s
-  ancestors.include?    192.603k (± 4.8%) i/s -    965.751k in   5.025917s
+  less than or equal      5.672M (± 2.9%) i/s -     28.514M in   5.031097s
+  ancestors.include?      1.161M (± 2.5%) i/s -      5.893M in   5.081149s
 
 Comparison:
-  less than or equal:  1249606.0 i/s
-  ancestors.include?:   192602.9 i/s - 6.49x  slower
+  less than or equal:  5672394.0 i/s
+  ancestors.include?:  1160576.6 i/s - 4.89x  (± 0.00) slower
 ```
 
 ### Method Invocation
@@ -213,117 +210,112 @@ Comparison:
 
 ```
 $ ruby -v code/method/call-vs-send-vs-method_missing.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+                call   610.633k i/100ms
+                send   482.690k i/100ms
+      method_missing   396.486k i/100ms
 Calculating -------------------------------------
-                call   115.094k i/100ms
-                send   105.258k i/100ms
-      method_missing   100.762k i/100ms
--------------------------------------------------
-                call      3.811M (± 5.9%) i/s -     18.991M
-                send      3.244M (± 7.2%) i/s -     16.210M
-      method_missing      2.729M (± 9.8%) i/s -     13.401M
+                call      6.139M (± 1.7%) i/s -     31.142M in   5.074268s
+                send      4.965M (± 2.9%) i/s -     25.100M in   5.059893s
+      method_missing      4.024M (± 2.3%) i/s -     20.221M in   5.027371s
 
 Comparison:
-                call:  3811183.4 i/s
-                send:  3244239.1 i/s - 1.17x slower
-      method_missing:  2728893.0 i/s - 1.40x slower
+                call:  6139069.9 i/s
+                send:  4965017.7 i/s - 1.24x  (± 0.00) slower
+      method_missing:  4024368.8 i/s - 1.53x  (± 0.00) slower
 ```
 
 ##### Normal way to apply method vs `&method(...)` [code](code/general/block-apply-method.rb)
 
 ```
 $ ruby -v code/general/block-apply-method.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+              normal   323.514k i/100ms
+             &method    93.236k i/100ms
 Calculating -------------------------------------
-              normal    85.749k i/100ms
-             &method    35.529k i/100ms
--------------------------------------------------
-              normal      1.867M (± 7.6%) i/s -      9.347M
-             &method    467.095k (± 6.4%) i/s -      2.345M
+              normal      3.180M (± 4.8%) i/s -     16.176M in   5.100120s
+             &method    905.470k (± 4.7%) i/s -      4.569M in   5.056928s
 
 Comparison:
-              normal:  1866669.5 i/s
-             &method:   467095.4 i/s - 4.00x slower
+              normal:  3179595.2 i/s
+             &method:   905469.9 i/s - 3.51x  (± 0.00) slower
 ```
 
 ##### Function with single Array argument vs splat arguments [code](code/general/array-argument-vs-splat-arguments.rb)
 
 ```
 $ ruby -v code/general/array-argument-vs-splat-arguments.rb
-ruby 2.1.7p400 (2015-08-18 revision 51632) [x86_64-linux-gnu]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Function with single Array argument
+                       828.138k i/100ms
+Function with splat arguments
+                         2.413k i/100ms
 Calculating -------------------------------------
 Function with single Array argument
-                       157.231k i/100ms
+                          8.812M (± 1.9%) i/s -     44.719M in   5.076571s
 Function with splat arguments
-                         4.983k i/100ms
--------------------------------------------------
-Function with single Array argument
-                          5.581M (± 2.0%) i/s -     27.987M
-Function with splat arguments
-                         54.428k (± 3.3%) i/s -    274.065k
+                         23.500k (± 3.0%) i/s -    118.237k in   5.035905s
 
 Comparison:
-Function with single Array argument:  5580972.6 i/s
-Function with splat arguments:    54427.7 i/s - 102.54x slower
-
+Function with single Array argument:  8812324.7 i/s
+Function with splat arguments:    23500.1 i/s - 374.99x  (± 0.00) slower
 ```
 
 ##### Hash vs OpenStruct on access assuming you already have a Hash or an OpenStruct [code](code/general/hash-vs-openstruct-on-access.rb)
 
 ```
 $ ruby -v code/general/hash-vs-openstruct-on-access.rb
-ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+                Hash   958.757k i/100ms
+          OpenStruct   466.231k i/100ms
 Calculating -------------------------------------
-                Hash   128.344k i/100ms
-          OpenStruct   110.723k i/100ms
--------------------------------------------------
-                Hash      5.279M (± 7.0%) i/s -     26.311M
-          OpenStruct      3.048M (± 7.0%) i/s -     15.169M
+                Hash      9.759M (± 2.4%) i/s -     48.897M in   5.013192s
+          OpenStruct      4.611M (± 2.8%) i/s -     23.312M in   5.060369s
 
 Comparison:
-                Hash:  5278844.0 i/s
-          OpenStruct:  3048139.8 i/s - 1.73x slower
+                Hash:  9759244.3 i/s
+          OpenStruct:  4610724.8 i/s - 2.12x  (± 0.00) slower
 ```
 
 ##### Hash vs OpenStruct (creation) [code](code/general/hash-vs-openstruct.rb)
 
 ```
 $ ruby -v code/general/hash-vs-openstruct.rb
-ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+                Hash     1.173M i/100ms
+          OpenStruct   185.011k i/100ms
 Calculating -------------------------------------
-                Hash    75.510k i/100ms
-          OpenStruct     9.126k i/100ms
--------------------------------------------------
-                Hash      1.604M (±11.0%) i/s -      7.929M
-          OpenStruct     96.855k (± 9.9%) i/s -    483.678k
+                Hash     11.798M (± 1.8%) i/s -     59.844M in   5.073948s
+          OpenStruct      1.793M (± 5.6%) i/s -      9.066M in   5.073703s
 
 Comparison:
-                Hash:  1604259.1 i/s
-          OpenStruct:    96855.3 i/s - 16.56x slower
+                Hash: 11798413.8 i/s
+          OpenStruct:  1792712.1 i/s - 6.58x  (± 0.00) slower
 ```
 
 ##### Kernel#format vs Float#round().to_s [code](code/general/format-vs-round-and-to-s.rb)
 
 ```
 $ ruby -v code/general/format-vs-round-and-to-s.rb
-ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-darwin15]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-         Float#round   106.645k i/100ms
-       Kernel#format    84.304k i/100ms
-            String#%    78.635k i/100ms
+         Float#round   215.129k i/100ms
+       Kernel#format   169.916k i/100ms
+            String#%   153.022k i/100ms
 Calculating -------------------------------------
-         Float#round      1.570M (± 3.2%) i/s - 7.892M in   5.030672s
-       Kernel#format      1.144M (± 3.0%) i/s - 5.733M in   5.015621s
-            String#%      1.047M (± 4.2%) i/s - 5.269M in   5.042970s
+         Float#round      2.140M (± 3.0%) i/s -     10.756M in   5.030793s
+       Kernel#format      1.605M (± 3.1%) i/s -      8.156M in   5.085791s
+            String#%      1.506M (± 3.0%) i/s -      7.651M in   5.083716s
 
 Comparison:
-         Float#round:  1570411.4 i/s
-       Kernel#format:  1144036.6 i/s - 1.37x  slower
-            String#%:  1046689.1 i/s - 1.50x  slower
+         Float#round:  2140045.2 i/s
+       Kernel#format:  1605258.5 i/s - 1.33x  (± 0.00) slower
+            String#%:  1506472.1 i/s - 1.42x  (± 0.00) slower
 ```
 
 ### Array
