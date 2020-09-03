@@ -1014,60 +1014,60 @@ always `ASCII-8BIT` encoded instead of the script encoding (usually `UTF-8`).
 
 ```
 $ ruby -v code/string/dup-vs-unary-plus.rb
-ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+           String#+@     1.071M i/100ms
+          String#dup   602.508k i/100ms
 Calculating -------------------------------------
-           String#+@      7.697M (± 1.4%) i/s -     38.634M in   5.020313s
-          String#dup      3.566M (± 1.0%) i/s -     17.860M in   5.008377s
+           String#+@     10.955M (± 2.8%) i/s -     55.706M in   5.089270s
+          String#dup      6.066M (± 1.6%) i/s -     30.728M in   5.067091s
 
 Comparison:
-           String#+@:  7697108.3 i/s
-          String#dup:  3566485.7 i/s - 2.16x  slower
+           String#+@: 10954541.4 i/s
+          String#dup:  6065820.4 i/s - 1.81x  (± 0.00) slower
 ```
 
 ##### `String#casecmp` vs `String#downcase + ==` [code](code/string/casecmp-vs-downcase-==.rb)
 
 ```
 $ ruby -v code/string/casecmp-vs-downcase-\=\=.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+String#downcase + ==   610.780k i/100ms
+      String#casecmp   806.876k i/100ms
 Calculating -------------------------------------
-String#downcase + ==   101.900k i/100ms
-      String#casecmp   109.828k i/100ms
--------------------------------------------------
-String#downcase + ==      2.915M (± 5.4%) i/s -     14.572M
-      String#casecmp      3.708M (± 6.1%) i/s -     18.561M
+String#downcase + ==      6.450M (± 2.9%) i/s -     32.371M in   5.023332s
+      String#casecmp      8.619M (± 3.7%) i/s -     43.571M in   5.063054s
 
 Comparison:
-      String#casecmp:  3708258.7 i/s
-String#downcase + ==:  2914767.7 i/s - 1.27x slower
+      String#casecmp:  8618603.3 i/s
+String#downcase + ==:  6449730.0 i/s - 1.34x  (± 0.00) slower
 ```
 
 ##### String Concatenation [code](code/string/concatenation.rb)
 
 ```
 $ ruby -v code/string/concatenation.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-            String#+   149.298k i/100ms
-       String#concat   151.505k i/100ms
-       String#append   153.389k i/100ms
-         "foo" "bar"   195.552k i/100ms
-  "#{'foo'}#{'bar'}"   193.784k i/100ms
+            String#+   644.278k i/100ms
+       String#concat   632.375k i/100ms
+       String#append   756.843k i/100ms
+         "foo" "bar"     1.394M i/100ms
+  "#{'foo'}#{'bar'}"     1.413M i/100ms
 Calculating -------------------------------------
-            String#+      2.977M (± 1.1%) i/s -     14.930M in   5.015179s
-       String#concat      3.017M (± 1.3%) i/s -     15.150M in   5.023063s
-       String#append      3.076M (± 1.2%) i/s -     15.492M in   5.037683s
-         "foo" "bar"      5.370M (± 1.0%) i/s -     26.986M in   5.026271s
-  "#{'foo'}#{'bar'}"      5.182M (± 4.6%) i/s -     25.967M in   5.022093s
+            String#+      6.551M (± 4.1%) i/s -     32.858M in   5.025409s
+       String#concat      6.488M (± 4.8%) i/s -     32.884M in   5.080091s
+       String#append      7.664M (± 2.9%) i/s -     38.599M in   5.040920s
+         "foo" "bar"     13.856M (± 7.8%) i/s -     69.702M in   5.079283s
+  "#{'foo'}#{'bar'}"     13.815M (± 4.3%) i/s -     69.250M in   5.022174s
 
 Comparison:
-         "foo" "bar":  5369594.5 i/s
-  "#{'foo'}#{'bar'}":  5181745.7 i/s - same-ish: difference falls within error
-       String#append:  3075719.2 i/s - 1.75x slower
-       String#concat:  3016703.5 i/s - 1.78x slower
-            String#+:  2977282.7 i/s - 1.80x slower
+         "foo" "bar": 13855719.5 i/s
+  "#{'foo'}#{'bar'}": 13815281.1 i/s - same-ish: difference falls within error
+       String#append:  7664128.7 i/s - 1.81x  (± 0.00) slower
+            String#+:  6550634.9 i/s - 2.12x  (± 0.00) slower
+       String#concat:  6488286.4 i/s - 2.14x  (± 0.00) slower
 ```
 
 ##### `String#match` vs `String.match?` vs `String#start_with?`/`String#end_with?` [code (start)](code/string/start-string-checking-match-vs-start_with.rb) [code (end)](code/string/end-string-checking-match-vs-end_with.rb)
@@ -1087,51 +1087,58 @@ longer. For short strings, `String#match?` performs similarly to
 
 ```
 $ ruby -v code/string/start-string-checking-match-vs-start_with.rb
-ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+           String#=~   131.474k i/100ms
+       String#match?   757.214k i/100ms
+  String#start_with?   874.305k i/100ms
 Calculating -------------------------------------
-           String#=~      1.088M (± 4.0%) i/s -      5.471M in   5.034404s
-       String#match?      5.138M (± 5.0%) i/s -     25.669M in   5.008810s
-  String#start_with?      6.314M (± 4.3%) i/s -     31.554M in   5.007207s
+           String#=~      1.349M (± 2.8%) i/s -      6.837M in   5.070199s
+       String#match?      7.687M (± 4.0%) i/s -     38.618M in   5.032532s
+  String#start_with?      9.367M (± 4.0%) i/s -     47.212M in   5.048972s
 
 Comparison:
-  String#start_with?:  6314182.0 i/s
-       String#match?:  5138115.1 i/s - 1.23x  slower
-           String#=~:  1088461.5 i/s - 5.80x  slower
+  String#start_with?:  9366727.3 i/s
+       String#match?:  7686583.2 i/s - 1.22x  (± 0.00) slower
+           String#=~:  1349480.7 i/s - 6.94x  (± 0.00) slower
 ```
 
 ```
 $ ruby -v code/string/end-string-checking-match-vs-end_with.rb
-  ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+           String#=~   110.005k i/100ms
+       String#match?   417.899k i/100ms
+    String#end_with?   660.870k i/100ms
+Calculating -------------------------------------
+           String#=~      1.084M (± 3.3%) i/s -      5.500M in   5.078816s
+       String#match?      4.231M (± 1.8%) i/s -     21.313M in   5.039252s
+    String#end_with?      6.510M (± 2.3%) i/s -     33.044M in   5.078260s
 
-  Calculating -------------------------------------
-             String#=~    918.101k (± 6.0%) i/s -      4.650M in   5.084079s
-         String#match?      3.009M (± 6.8%) i/s -     14.991M in   5.005691s
-      String#end_with?      4.548M (± 9.3%) i/s -     22.684M in   5.034115s
-
-  Comparison:
-      String#end_with?:  4547871.0 i/s
-         String#match?:  3008554.5 i/s - 1.51x  slower
-             String#=~:   918100.5 i/s - 4.95x  slower
+Comparison:
+    String#end_with?:  6510482.0 i/s
+       String#match?:  4230789.7 i/s - 1.54x  (± 0.00) slower
+           String#=~:  1084242.4 i/s - 6.00x  (± 0.00) slower
 ```
 
 ##### `String#start_with?` vs `String#[].==` [code](code/string/start_with-vs-substring-==.rb)
 
 ```
 $ ruby -v code/string/end-string-checking-match-vs-end_with.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+           String#=~    99.173k i/100ms
+       String#match?   396.624k i/100ms
+    String#end_with?   699.841k i/100ms
 Calculating -------------------------------------
-  String#start_with?      2.047M (± 4.5%) i/s -     10.242M in   5.015146s
-    String#[0, n] ==    711.802k (± 7.3%) i/s -      3.551M in   5.019543s
-   String#[RANGE] ==    651.751k (± 6.2%) i/s -      3.296M in   5.078772s
-   String#[0...n] ==    427.207k (± 5.7%) i/s -      2.136M in   5.019245s
+           String#=~      1.114M (± 2.1%) i/s -      5.653M in   5.075243s
+       String#match?      4.248M (± 1.8%) i/s -     21.418M in   5.042919s
+    String#end_with?      6.741M (± 4.7%) i/s -     34.292M in   5.098786s
 
 Comparison:
-  String#start_with?:  2046618.9 i/s
-    String#[0, n] ==:   711802.3 i/s - 2.88x slower
-   String#[RANGE] ==:   651751.2 i/s - 3.14x slower
-   String#[0...n] ==:   427206.8 i/s - 4.79x slower
+    String#end_with?:  6740707.0 i/s
+       String#match?:  4248494.5 i/s - 1.59x  (± 0.00) slower
+           String#=~:  1114329.9 i/s - 6.05x  (± 0.00) slower
 ```
 
 ##### `Regexp#===` vs `String#match` vs `String#=~` vs `String#match?` [code ](code/string/===-vs-=~-vs-match.rb)
@@ -1150,19 +1157,23 @@ improvement.
 
 ```
 $ ruby -v code/string/===-vs-=~-vs-match.rb
-ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+       String#match?   933.897k i/100ms
+           String#=~   322.057k i/100ms
+          Regexp#===   319.566k i/100ms
+        String#match   279.433k i/100ms
 Calculating -------------------------------------
-       String#match?      6.284M (± 5.6%) i/s -     31.324M in   5.001471s
-           String#=~      2.581M (± 4.7%) i/s -     12.977M in   5.038887s
-          Regexp#===      2.482M (± 4.1%) i/s -     12.397M in   5.002808s
-        String#match      2.097M (± 4.3%) i/s -     10.592M in   5.060535s
+       String#match?      9.822M (± 1.4%) i/s -     49.497M in   5.040452s
+           String#=~      3.555M (± 1.8%) i/s -     18.035M in   5.075273s
+          Regexp#===      3.370M (± 1.5%) i/s -     16.937M in   5.026348s
+        String#match      2.939M (± 3.0%) i/s -     14.810M in   5.043585s
 
 Comparison:
-       String#match?:  6283591.8 i/s
-           String#=~:  2581356.8 i/s - 2.43x  slower
-          Regexp#===:  2482379.7 i/s - 2.53x  slower
-        String#match:  2096984.3 i/s - 3.00x  slower
+       String#match?:  9821872.1 i/s
+           String#=~:  3554713.5 i/s - 2.76x  (± 0.00) slower
+          Regexp#===:  3370450.3 i/s - 2.91x  (± 0.00) slower
+        String#match:  2939111.4 i/s - 3.34x  (± 0.00) slower
 ```
 
 See [#59](https://github.com/JuanitoFatas/fast-ruby/pull/59) and [#62](https://github.com/JuanitoFatas/fast-ruby/pull/62) for discussions.
@@ -1172,23 +1183,22 @@ See [#59](https://github.com/JuanitoFatas/fast-ruby/pull/59) and [#62](https://g
 
 ```
 $ ruby -v code/string/gsub-vs-sub.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-         String#gsub    48.360k i/100ms
-          String#sub    45.739k i/100ms
-String#dup["string"]=   59.896k i/100ms
+         String#gsub    70.219k i/100ms
+          String#sub   100.142k i/100ms
+String#dup["string"]=
+                       170.451k i/100ms
 Calculating -------------------------------------
-         String#gsub    647.666k (± 3.3%) i/s -      3.240M in   5.008504s
-          String#sub    756.665k (± 2.0%) i/s -      3.796M in   5.019235s
-String#dup["string"]=   917.873k (± 1.8%) i/s -      4.612M in   5.026253s
+         String#gsub    770.212k (± 2.5%) i/s -      3.862M in   5.017455s
+          String#sub      1.016M (± 2.6%) i/s -      5.107M in   5.028889s
+String#dup["string"]=
+                          1.683M (± 4.6%) i/s -      8.523M in   5.074770s
 
 Comparison:
-String#dup["string"]=:   917873.1 i/s
-          String#sub:    756664.7 i/s - 1.21x slower
-         String#gsub:    647665.6 i/s - 1.42x slower
-
-
+String#dup["string"]=:  1683147.9 i/s
+          String#sub:  1016268.3 i/s - 1.66x  (± 0.00) slower
+         String#gsub:   770211.7 i/s - 2.19x  (± 0.00) slower
 ```
 
 ##### `String#gsub` vs `String#tr` [code](code/string/gsub-vs-tr.rb)
@@ -1197,33 +1207,34 @@ String#dup["string"]=:   917873.1 i/s
 
 ```
 $ ruby -v code/string/gsub-vs-tr.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+         String#gsub    73.344k i/100ms
+           String#tr   397.127k i/100ms
 Calculating -------------------------------------
-         String#gsub    38.268k i/100ms
-           String#tr    83.210k i/100ms
--------------------------------------------------
-         String#gsub    516.604k (± 4.4%) i/s -      2.602M
-           String#tr      1.862M (± 4.0%) i/s -      9.320M
+         String#gsub    789.077k (± 3.0%) i/s -      3.961M in   5.023970s
+           String#tr      4.083M (± 4.3%) i/s -     20.651M in   5.067929s
 
 Comparison:
-           String#tr:  1861860.4 i/s
-         String#gsub:   516604.2 i/s - 3.60x slower
+           String#tr:  4082595.0 i/s
+         String#gsub:   789077.3 i/s - 5.17x  (± 0.00) slower
 ```
 
 ##### `Mutable` vs `Immutable` [code](code/string/mutable_vs_immutable_strings.rb)
 
 ```
 $ ruby -v code/string/mutable_vs_immutable_strings.rb
-ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+      Without Freeze     1.299M i/100ms
+         With Freeze     2.008M i/100ms
 Calculating -------------------------------------
-      Without Freeze      7.279M (± 6.6%) i/s -     36.451M in   5.029785s
-         With Freeze      9.329M (± 7.9%) i/s -     46.370M in   5.001345s
+      Without Freeze     13.607M (± 3.2%) i/s -     68.823M in   5.063587s
+         With Freeze     20.241M (± 3.3%) i/s -    102.389M in   5.064305s
 
 Comparison:
-         With Freeze:  9329054.3 i/s
-      Without Freeze:  7279203.1 i/s - 1.28x slower
+         With Freeze: 20241129.8 i/s
+      Without Freeze: 13606987.7 i/s - 1.49x  (± 0.00) slower
 ```
 
 
@@ -1233,30 +1244,29 @@ Note that `String#[]` will throw an `IndexError` when given string or regexp not
 
 ```
 $ ruby -v code/string/sub\!-vs-gsub\!-vs-\[\]\=.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+  String#['string']=   161.138k i/100ms
+ String#sub!'string'    92.258k i/100ms
+String#gsub!'string'    58.494k i/100ms
+  String#[/regexp/]=    99.344k i/100ms
+ String#sub!/regexp/    81.249k i/100ms
+String#gsub!/regexp/    40.552k i/100ms
 Calculating -------------------------------------
-  String#['string']=    74.512k i/100ms
- String#sub!'string'    52.801k i/100ms
-String#gsub!'string'    34.480k i/100ms
-  String#[/regexp/]=    55.325k i/100ms
- String#sub!/regexp/    45.770k i/100ms
-String#gsub!/regexp/    27.665k i/100ms
--------------------------------------------------
-  String#['string']=      1.215M (± 6.2%) i/s -      6.110M
- String#sub!'string'    752.731k (± 6.2%) i/s -      3.749M
-String#gsub!'string'    481.183k (± 4.4%) i/s -      2.414M
-  String#[/regexp/]=    840.615k (± 5.3%) i/s -      4.205M
- String#sub!/regexp/    663.075k (± 7.8%) i/s -      3.295M
-String#gsub!/regexp/    342.004k (± 7.5%) i/s -      1.715M
+  String#['string']=      1.686M (±10.7%) i/s -      8.379M in   5.041979s
+ String#sub!'string'    900.157k (± 7.8%) i/s -      4.521M in   5.054829s
+String#gsub!'string'    560.277k (± 5.0%) i/s -      2.808M in   5.024182s
+  String#[/regexp/]=    931.565k (± 8.5%) i/s -      4.669M in   5.049933s
+ String#sub!/regexp/    762.802k (± 8.3%) i/s -      3.819M in   5.042875s
+String#gsub!/regexp/    397.799k (± 8.1%) i/s -      1.987M in   5.037332s
 
 Comparison:
-  String#['string']=:  1214845.5 i/s
-  String#[/regexp/]=:   840615.2 i/s - 1.45x slower
- String#sub!'string':   752731.4 i/s - 1.61x slower
- String#sub!/regexp/:   663075.3 i/s - 1.83x slower
-String#gsub!'string':   481183.5 i/s - 2.52x slower
-String#gsub!/regexp/:   342003.8 i/s - 3.55x slower
+  String#['string']=:  1685561.7 i/s
+  String#[/regexp/]=:   931565.5 i/s - 1.81x  (± 0.00) slower
+ String#sub!'string':   900156.6 i/s - 1.87x  (± 0.00) slower
+ String#sub!/regexp/:   762802.3 i/s - 2.21x  (± 0.00) slower
+String#gsub!'string':   560277.3 i/s - 3.01x  (± 0.00) slower
+String#gsub!/regexp/:   397798.7 i/s - 4.24x  (± 0.00) slower
 ```
 
 ##### `String#sub` vs `String#delete_prefix` [code](code/string/sub-vs-delete_prefix.rb)
@@ -1266,14 +1276,17 @@ Note that this can only be used for removing characters from the start of a stri
 
 ```
 $ ruby -v code/string/sub-vs-delete_prefix.rb
-ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+String#delete_prefix   651.633k i/100ms
+          String#sub   103.496k i/100ms
 Calculating -------------------------------------
-String#delete_prefix      4.112M (± 1.8%) i/s -     20.707M in   5.037928s
-          String#sub    814.725k (± 1.4%) i/s -      4.088M in   5.018962s
+String#delete_prefix      6.608M (± 1.9%) i/s -     33.233M in   5.030950s
+          String#sub      1.006M (± 3.9%) i/s -      5.071M in   5.047161s
 
 Comparison:
-String#delete_prefix:  4111531.1 i/s
-          String#sub:   814725.3 i/s - 5.05x  slower
+String#delete_prefix:  6608273.4 i/s
+          String#sub:  1006307.8 i/s - 6.57x  (± 0.00) slower
 ```
 
 ##### `String#sub` vs `String#chomp` vs `String#delete_suffix` [code](code/string/sub-vs-chomp-vs-delete_suffix.rb)
@@ -1285,16 +1298,20 @@ Note that this can only be used for removing characters from the end of a string
 
 ```
 $ ruby -v code/string/sub-vs-chomp-vs-delete_suffix.rb
-ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+          String#sub    92.565k i/100ms
+        String#chomp   586.333k i/100ms
+String#delete_suffix   645.077k i/100ms
 Calculating -------------------------------------
-        String#sub    838.415k (± 1.7%) i/s -      4.214M in   5.027412s
-      String#chomp      3.951M (± 2.1%) i/s -     19.813M in   5.017089s
-String#delete_suffix    4.202M (± 2.1%) i/s -     21.075M in   5.017429s
+          String#sub      1.009M (± 2.7%) i/s -      5.091M in   5.049046s
+        String#chomp      6.182M (± 1.8%) i/s -     31.076M in   5.028698s
+String#delete_suffix      6.366M (± 3.5%) i/s -     32.254M in   5.073138s
 
 Comparison:
-String#delete_suffix:  4202201.7 i/s
-        String#chomp:  3950921.9 i/s - 1.06x  slower
-          String#sub:   838415.3 i/s - 5.01x  slower
+String#delete_suffix:  6365775.6 i/s
+        String#chomp:  6181673.7 i/s - same-ish: difference falls within error
+          String#sub:  1009124.0 i/s - 6.31x  (± 0.00) slower
 ```
 
 ##### `String#unpack1` vs `String#unpack[0]` [code](code/string/unpack1-vs-unpack[0].rb)
@@ -1303,17 +1320,17 @@ String#delete_suffix:  4202201.7 i/s
 
 ```
 $ ruby -v code/string/unpack1-vs-unpack\[0\].rb
-ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-      String#unpack1   224.291k i/100ms
-    String#unpack[0]   201.870k i/100ms
+      String#unpack1   691.750k i/100ms
+    String#unpack[0]   548.439k i/100ms
 Calculating -------------------------------------
-      String#unpack1      4.864M (± 4.2%) i/s -     24.448M in   5.035203s
-    String#unpack[0]      3.778M (± 4.0%) i/s -     18.976M in   5.031253s
+      String#unpack1      7.247M (± 2.6%) i/s -     36.663M in   5.062347s
+    String#unpack[0]      5.649M (± 3.9%) i/s -     28.519M in   5.056721s
 
 Comparison:
-      String#unpack1:  4864467.2 i/s
-    String#unpack[0]:  3777815.6 i/s - 1.29x  slower
+      String#unpack1:  7247336.5 i/s
+    String#unpack[0]:  5648858.8 i/s - 1.28x  (± 0.00) slower
 ```
 
 ##### Remove extra spaces (or other contiguous characters) [code](code/string/remove-extra-spaces-or-other-chars.rb)
@@ -1322,17 +1339,17 @@ The code is tested against contiguous spaces but should work for other chars too
 
 ```
 $ ruby -v code/string/remove-extra-spaces-or-other-chars.rb
-ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-linux]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
- String#gsub/regex+/     1.644k i/100ms
-      String#squeeze    24.681k i/100ms
+ String#gsub/regex+/     5.441k i/100ms
+      String#squeeze    98.176k i/100ms
 Calculating -------------------------------------
- String#gsub/regex+/     14.668k (± 5.1%) i/s -     73.980k in   5.056887s
-      String#squeeze    372.910k (± 8.4%) i/s -      1.851M in   5.011881s
+ String#gsub/regex+/     57.109k (± 3.1%) i/s -    288.373k in   5.054593s
+      String#squeeze      1.029M (± 4.3%) i/s -      5.203M in   5.067687s
 
 Comparison:
-      String#squeeze:   372910.3 i/s
- String#gsub/regex+/:    14668.1 i/s - 25.42x  slower
+      String#squeeze:  1028706.9 i/s
+ String#gsub/regex+/:    57109.4 i/s - 18.01x  (± 0.00) slower
 ```
 
 ### Time
