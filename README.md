@@ -673,24 +673,23 @@ Read more regarding this: [Symbol GC in Ruby 2.2](http://www.sitepoint.com/symbo
 
 ```
 $ ruby -v code/hash/bracket-vs-fetch.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+     Hash#[], symbol     1.578M i/100ms
+  Hash#fetch, symbol     1.145M i/100ms
+     Hash#[], string     1.329M i/100ms
+  Hash#fetch, string   816.625k i/100ms
 Calculating -------------------------------------
-     Hash#[], symbol   143.850k i/100ms
-  Hash#fetch, symbol   137.425k i/100ms
-     Hash#[], string   143.083k i/100ms
-  Hash#fetch, string   120.417k i/100ms
--------------------------------------------------
-     Hash#[], symbol      7.531M (± 6.6%) i/s -     37.545M
-  Hash#fetch, symbol      6.644M (± 8.2%) i/s -     32.982M
-     Hash#[], string      6.657M (± 7.7%) i/s -     33.195M
-  Hash#fetch, string      3.981M (± 8.7%) i/s -     19.748M
+     Hash#[], symbol     15.559M (± 6.4%) i/s -     78.914M in   5.098556s
+  Hash#fetch, symbol     11.783M (± 4.3%) i/s -     59.555M in   5.064066s
+     Hash#[], string     13.674M (± 4.0%) i/s -     69.093M in   5.061215s
+  Hash#fetch, string      8.100M (± 3.1%) i/s -     40.831M in   5.046337s
 
 Comparison:
-     Hash#[], symbol:  7531355.8 i/s
-     Hash#[], string:  6656818.8 i/s - 1.13x slower
-  Hash#fetch, symbol:  6643665.5 i/s - 1.13x slower
-  Hash#fetch, string:  3981166.5 i/s - 1.89x slower
+     Hash#[], symbol: 15559281.0 i/s
+     Hash#[], string: 13674313.5 i/s - 1.14x  (± 0.00) slower
+  Hash#fetch, symbol: 11783486.9 i/s - 1.32x  (± 0.00) slower
+  Hash#fetch, string:  8099570.5 i/s - 1.92x  (± 0.00) slower
 ```
 
 ##### `Hash#dig` vs `Hash#[]` vs `Hash#fetch` [code](code/hash/dig-vs-[]-vs-fetch.rb)
@@ -701,23 +700,29 @@ See [#102 (comment)](https://github.com/JuanitoFatas/fast-ruby/pull/102#issuecom
 
 ```
 $ ruby -v code/hash/dig-vs-\[\]-vs-fetch.rb
-ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+            Hash#dig   866.364k i/100ms
+             Hash#[]     1.015M i/100ms
+          Hash#[] ||   919.408k i/100ms
+          Hash#[] &&   403.113k i/100ms
+          Hash#fetch   562.869k i/100ms
+ Hash#fetch fallback   367.708k i/100ms
 Calculating -------------------------------------
-            Hash#dig      5.719M (± 6.1%) i/s -     28.573M in   5.013997s
-             Hash#[]      6.066M (± 6.9%) i/s -     30.324M in   5.025614s
-          Hash#[] ||      5.366M (± 6.5%) i/s -     26.933M in   5.041403s
-          Hash#[] &&      2.782M (± 4.8%) i/s -     13.905M in   5.010328s
-          Hash#fetch      4.101M (± 6.1%) i/s -     20.531M in   5.024945s
- Hash#fetch fallback      2.975M (± 5.5%) i/s -     14.972M in   5.048880s
+            Hash#dig      8.799M (± 2.1%) i/s -     44.185M in   5.024010s
+             Hash#[]     10.075M (± 1.4%) i/s -     50.749M in   5.038009s
+          Hash#[] ||      9.265M (± 2.5%) i/s -     46.890M in   5.064095s
+          Hash#[] &&      3.973M (± 2.3%) i/s -     20.156M in   5.075931s
+          Hash#fetch      5.628M (± 1.8%) i/s -     28.143M in   5.002463s
+ Hash#fetch fallback      3.729M (± 2.0%) i/s -     18.753M in   5.031211s
 
 Comparison:
-             Hash#[]:  6065791.0 i/s
-            Hash#dig:  5719290.9 i/s - same-ish: difference falls within error
-          Hash#[] ||:  5366226.5 i/s - same-ish: difference falls within error
-          Hash#fetch:  4101102.1 i/s - 1.48x slower
- Hash#fetch fallback:  2974906.9 i/s - 2.04x slower
-          Hash#[] &&:  2781646.6 i/s - 2.18x slower
+             Hash#[]: 10075125.9 i/s
+          Hash#[] ||:  9265121.7 i/s - 1.09x  (± 0.00) slower
+            Hash#dig:  8798657.1 i/s - 1.15x  (± 0.00) slower
+          Hash#fetch:  5627801.2 i/s - 1.79x  (± 0.00) slower
+          Hash#[] &&:  3972950.0 i/s - 2.54x  (± 0.00) slower
+ Hash#fetch fallback:  3728892.3 i/s - 2.70x  (± 0.00) slower
 ```
 
 ##### `Hash[]` vs `Hash#dup` [code](code/hash/bracket-vs-dup.rb)
@@ -731,18 +736,17 @@ Source: http://tenderlovemaking.com/2015/02/11/weird-stuff-with-hashes.html
 
 ```
 $ ruby -v code/hash/bracket-vs-dup.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+              Hash[]   149.225k i/100ms
+            Hash#dup    96.841k i/100ms
 Calculating -------------------------------------
-              Hash[]    29.403k i/100ms
-            Hash#dup    16.195k i/100ms
--------------------------------------------------
-              Hash[]    343.987k (± 8.7%) i/s -      1.735M
-            Hash#dup    163.516k (±10.2%) i/s -    825.945k
+              Hash[]      1.487M (± 4.5%) i/s -      7.461M in   5.026541s
+            Hash#dup    956.466k (± 4.7%) i/s -      4.842M in   5.074597s
 
 Comparison:
-              Hash[]:   343986.5 i/s
-            Hash#dup:   163516.3 i/s - 2.10x slower
+              Hash[]:  1487436.0 i/s
+            Hash#dup:   956465.9 i/s - 1.56x  (± 0.00) slower
 ```
 
 ##### `Hash#fetch` with argument vs `Hash#fetch` + block [code](code/hash/fetch-vs-fetch-with-block.rb)
@@ -754,20 +758,20 @@ Comparison:
 
 ```
 $ ruby -v code/hash/fetch-vs-fetch-with-block.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin13]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+  Hash#fetch + const     1.497M i/100ms
+  Hash#fetch + block     1.508M i/100ms
+    Hash#fetch + arg     1.141M i/100ms
 Calculating -------------------------------------
-  Hash#fetch + const   129.868k i/100ms
-  Hash#fetch + block   125.254k i/100ms
-    Hash#fetch + arg   121.155k i/100ms
--------------------------------------------------
-  Hash#fetch + const      7.031M (± 7.0%) i/s -     34.934M
-  Hash#fetch + block      6.815M (± 4.2%) i/s -     34.069M
-    Hash#fetch + arg      4.753M (± 5.6%) i/s -     23.746M
+  Hash#fetch + const     14.988M (± 2.0%) i/s -     76.340M in   5.095493s
+  Hash#fetch + block     14.976M (± 4.5%) i/s -     75.423M in   5.049706s
+    Hash#fetch + arg     11.178M (± 2.9%) i/s -     55.919M in   5.007064s
 
 Comparison:
-  Hash#fetch + const:  7030600.4 i/s
-  Hash#fetch + block:  6814826.7 i/s - 1.03x slower
-    Hash#fetch + arg:  4752567.2 i/s - 1.48x slower
+  Hash#fetch + const: 14987813.3 i/s
+  Hash#fetch + block: 14976419.9 i/s - same-ish: difference falls within error
+    Hash#fetch + arg: 11178055.5 i/s - 1.34x  (± 0.00) slower
 ```
 
 ##### `Hash#each_key` instead of `Hash#keys.each` [code](code/hash/keys-each-vs-each_key.rb)
@@ -779,18 +783,17 @@ Comparison:
 
 ```
 $ ruby -v code/hash/keys-each-vs-each_key.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+      Hash#keys.each   154.360k i/100ms
+       Hash#each_key   162.957k i/100ms
 Calculating -------------------------------------
-      Hash#keys.each    56.690k i/100ms
-       Hash#each_key    59.658k i/100ms
--------------------------------------------------
-      Hash#keys.each    869.262k (± 5.0%) i/s -      4.365M
-       Hash#each_key      1.049M (± 6.0%) i/s -      5.250M
+      Hash#keys.each      1.617M (± 1.9%) i/s -      8.181M in   5.061828s
+       Hash#each_key      1.679M (± 1.7%) i/s -      8.474M in   5.047816s
 
 Comparison:
-       Hash#each_key:  1049161.6 i/s
-      Hash#keys.each:   869262.3 i/s - 1.21x slower
+       Hash#each_key:  1679171.3 i/s
+      Hash#keys.each:  1616845.9 i/s - 1.04x  (± 0.00) slower
 ```
 
 #### `Hash#key?` instead of `Hash#keys.include?` [code](code/hash/keys-include-vs-key.rb)
@@ -800,15 +803,17 @@ Comparison:
 
 ```
 $ ruby -v code/hash/keys-include-vs-key.rb
-ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin17]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+  Hash#keys.include?   716.000  i/100ms
+           Hash#key?     1.106M i/100ms
 Calculating -------------------------------------
-  Hash#keys.include?      8.612k (± 2.5%) i/s -     43.248k in   5.024749s
-           Hash#key?      6.366M (± 5.5%) i/s -     31.715M in   5.002276s
+  Hash#keys.include?      7.354k (± 2.4%) i/s -     37.232k in   5.065871s
+           Hash#key?     11.073M (± 1.6%) i/s -     56.405M in   5.095273s
 
 Comparison:
-           Hash#key?:  6365855.5 i/s
-  Hash#keys.include?:     8612.4 i/s - 739.15x  slower
+           Hash#key?: 11072899.2 i/s
+  Hash#keys.include?:     7353.7 i/s - 1505.76x  (± 0.00) slower
 ```
 
 ##### `Hash#value?` instead of `Hash#values.include?` [code](code/hash/values-include-vs-value.rb)
@@ -818,68 +823,68 @@ Comparison:
 
 ```
 $ ruby -v code/hash/values-include-vs-value.rb
-ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin17]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Hash#values.include?   683.000  i/100ms
+         Hash#value?   723.000  i/100ms
 Calculating -------------------------------------
-Hash#values.include?     23.187k (± 4.3%) i/s -    117.720k in   5.086976s
-         Hash#value?     38.395k (± 1.0%) i/s -    194.361k in   5.062696s
+Hash#values.include?      7.086k (± 2.8%) i/s -     35.516k in   5.016423s
+         Hash#value?      7.329k (± 2.1%) i/s -     36.873k in   5.033587s
 
 Comparison:
-         Hash#value?:    38395.0 i/s
-Hash#values.include?:    23186.8 i/s - 1.66x  slower
+         Hash#value?:     7328.6 i/s
+Hash#values.include?:     7085.6 i/s - same-ish: difference falls within error
 ```
 
 ##### `Hash#merge!` vs `Hash#[]=` [code](code/hash/merge-bang-vs-\[\]=.rb)
 
 ```
 $ ruby -v code/hash/merge-bang-vs-\[\]=.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+         Hash#merge!     5.071k i/100ms
+            Hash#[]=     9.983k i/100ms
 Calculating -------------------------------------
-         Hash#merge!     1.023k i/100ms
-            Hash#[]=     2.844k i/100ms
--------------------------------------------------
-         Hash#merge!     10.653k (± 4.9%) i/s -     53.196k
-            Hash#[]=     28.287k (±12.4%) i/s -    142.200k
+         Hash#merge!     52.171k (± 2.0%) i/s -    263.692k in   5.056311s
+            Hash#[]=    100.355k (± 2.6%) i/s -    509.133k in   5.076807s
 
 Comparison:
-            Hash#[]=:    28287.1 i/s
-         Hash#merge!:    10653.3 i/s - 2.66x slower
+            Hash#[]=:   100354.8 i/s
+         Hash#merge!:    52171.3 i/s - 1.92x  (± 0.00) slower
 ```
 
 ##### `Hash#merge` vs `Hash#**other` [code](code/hash/merge-vs-double-splat-operator.rb)
 
 ```
 $ ruby -v code/hash/merge-vs-double-splat-operator.rb
-ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-darwin15]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-        Hash#**other    64.624k i/100ms
-          Hash#merge    38.827k i/100ms
+        Hash#**other   429.060k i/100ms
+          Hash#merge   342.120k i/100ms
 Calculating -------------------------------------
-        Hash#**other    798.397k (± 6.9%) i/s -      4.007M in   5.053516s
-          Hash#merge    434.171k (± 4.5%) i/s -      2.174M in   5.018927s
+        Hash#**other      4.286M (± 2.0%) i/s -     21.453M in   5.007340s
+          Hash#merge      3.559M (± 4.2%) i/s -     17.790M in   5.008055s
 
 Comparison:
-        Hash#**other:   798396.6 i/s
-          Hash#merge:   434170.8 i/s - 1.84x  slower
+        Hash#**other:  4286088.9 i/s
+          Hash#merge:  3559127.3 i/s - 1.20x  (± 0.00) slower
 ```
 
 ##### `Hash#merge` vs `Hash#merge!` [code](code/hash/merge-vs-merge-bang.rb)
 
 ```
 $ ruby -v code/hash/merge-vs-merge-bang.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+          Hash#merge     1.102k i/100ms
+         Hash#merge!     4.970k i/100ms
 Calculating -------------------------------------
-          Hash#merge    39.000  i/100ms
-         Hash#merge!     1.008k i/100ms
--------------------------------------------------
-          Hash#merge    409.610  (± 7.6%) i/s -      2.067k
-         Hash#merge!      9.830k (± 5.8%) i/s -     49.392k
+          Hash#merge     11.593k (± 2.2%) i/s -     58.406k in   5.040485s
+         Hash#merge!     51.999k (± 3.3%) i/s -    263.410k in   5.071435s
 
 Comparison:
-         Hash#merge!:     9830.3 i/s
-          Hash#merge:      409.6 i/s - 24.00x slower
+         Hash#merge!:    51999.5 i/s
+          Hash#merge:    11593.0 i/s - 4.49x  (± 0.00) slower
 ```
 
 ##### `{}#merge!(Hash)` vs `Hash#merge({})` vs `Hash#dup#merge!({})` [code](code/hash/merge-bang-vs-merge-vs-dup-merge-bang.rb)
@@ -889,21 +894,22 @@ Comparison:
 
 ```
 $ ruby -v code/hash/merge-bang-vs-merge-vs-dup-merge-bang.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-linux]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+{}#merge!(Hash) do end
+                         5.105k i/100ms
+      Hash#merge({})     4.041k i/100ms
+ Hash#dup#merge!({})     2.836k i/100ms
 Calculating -------------------------------------
-{}#merge!(Hash) do end     2.006k i/100ms
-        Hash#merge({})   762.000  i/100ms
-   Hash#dup#merge!({})   736.000  i/100ms
--------------------------------------------------
-{}#merge!(Hash) do end     20.055k (± 2.0%) i/s -    100.300k in   5.003322s
-        Hash#merge({})      7.676k (± 1.2%) i/s -     38.862k in   5.063382s
-   Hash#dup#merge!({})      7.440k (± 1.1%) i/s -     37.536k in   5.045851s
+{}#merge!(Hash) do end
+                         50.114k (± 6.8%) i/s -    250.145k in   5.018579s
+      Hash#merge({})     43.887k (± 3.4%) i/s -    222.255k in   5.070494s
+ Hash#dup#merge!({})     29.809k (± 2.0%) i/s -    150.308k in   5.044402s
 
 Comparison:
-{}#merge!(Hash) do end:    20054.8 i/s
-        Hash#merge({}):     7676.3 i/s - 2.61x slower
-   Hash#dup#merge!({}):     7439.9 i/s - 2.70x slower
+{}#merge!(Hash) do end:    50114.1 i/s
+      Hash#merge({}):    43886.9 i/s - 1.14x  (± 0.00) slower
+ Hash#dup#merge!({}):    29809.4 i/s - 1.68x  (± 0.00) slower
 ```
 
 ##### `Hash#sort_by` vs `Hash#sort` [code](code/hash/hash-key-sort_by-vs-sort.rb)
@@ -912,18 +918,17 @@ To sort hash by key.
 
 ```
 $ ruby -v code/hash/hash-key-sort_by-vs-sort.rb
-ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+      sort_by + to_h    25.911k i/100ms
+         sort + to_h    10.881k i/100ms
 Calculating -------------------------------------
-      sort_by + to_h    11.468k i/100ms
-         sort + to_h     8.107k i/100ms
--------------------------------------------------
-      sort_by + to_h    122.176k (± 6.0%) i/s -    619.272k
-         sort + to_h     81.973k (± 4.7%) i/s -    413.457k
+      sort_by + to_h    271.112k (± 2.7%) i/s -      1.373M in   5.069254s
+         sort + to_h    109.199k (± 3.0%) i/s -    554.931k in   5.086643s
 
 Comparison:
-      sort_by + to_h:   122176.2 i/s
-         sort + to_h:    81972.8 i/s - 1.49x slower
+      sort_by + to_h:   271111.7 i/s
+         sort + to_h:   109199.4 i/s - 2.48x  (± 0.00) slower
 ```
 
 ##### Native `Hash#slice` vs other slice implementations before native [code](code/hash/slice-native-vs-before-native.rb)
@@ -932,23 +937,23 @@ Since ruby 2.5, Hash comes with a `slice` method to select hash members by keys.
 
 ```
 $ ruby -v code/hash/slice-native-vs-before-native.rb
-ruby 2.5.3p105 (2018-10-18 revision 65156) [x86_64-linux]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-Hash#native-slice      178.077k i/100ms
-Array#each             124.311k i/100ms
-Array#each_w/_object   110.818k i/100ms
-Hash#select-include     66.972k i/100ms
+Hash#native-slice      486.182k i/100ms
+Array#each             223.528k i/100ms
+Array#each_w/_object   185.366k i/100ms
+Hash#select-include     86.424k i/100ms
 Calculating -------------------------------------
-Hash#native-slice         2.540M (± 1.5%) i/s -     12.822M in   5.049955s
-Array#each                1.614M (± 1.0%) i/s -      8.080M in   5.007925s
-Array#each_w/_object      1.353M (± 2.6%) i/s -      6.760M in   5.000441s
-Hash#select-include     760.944k (± 0.9%) i/s -      3.817M in   5.017123s
+Hash#native-slice         5.070M (± 2.2%) i/s -     25.768M in   5.084409s
+Array#each                2.292M (± 4.7%) i/s -     11.623M in   5.085047s
+Array#each_w/_object      1.881M (± 2.3%) i/s -      9.454M in   5.029343s
+Hash#select-include     873.952k (± 1.9%) i/s -      4.408M in   5.045159s
 
 Comparison:
-Hash#native-slice   :  2539515.5 i/s
-Array#each          :  1613665.5 i/s - 1.57x  slower
-Array#each_w/_object:  1352851.8 i/s - 1.88x  slower
-Hash#select-include :   760944.2 i/s - 3.34x  slower
+Hash#native-slice   :  5070408.4 i/s
+Array#each          :  2291632.4 i/s - 2.21x  (± 0.00) slower
+Array#each_w/_object:  1880749.2 i/s - 2.70x  (± 0.00) slower
+Hash#select-include :   873951.6 i/s - 5.80x  (± 0.00) slower
 ```
 
 
