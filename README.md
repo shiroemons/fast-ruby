@@ -967,18 +967,17 @@ Hash#select-include :   873951.6 i/s - 5.80x  (± 0.00) slower
 
 ```
 $ ruby -v code/proc-and-block/block-vs-to_proc.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+               Block     7.508k i/100ms
+      Symbol#to_proc     8.152k i/100ms
 Calculating -------------------------------------
-               Block     4.632k i/100ms
-      Symbol#to_proc     5.225k i/100ms
--------------------------------------------------
-               Block     47.914k (± 6.3%) i/s -    240.864k
-      Symbol#to_proc     54.791k (± 4.1%) i/s -    276.925k
+               Block     81.184k (± 3.8%) i/s -    412.940k in   5.093746s
+      Symbol#to_proc     82.460k (± 4.0%) i/s -    415.752k in   5.050034s
 
 Comparison:
-      Symbol#to_proc:    54791.1 i/s
-               Block:    47914.3 i/s - 1.14x slower
+      Symbol#to_proc:    82459.7 i/s
+               Block:    81183.9 i/s - same-ish: difference falls within error
 ```
 
 ##### `Proc#call` and block arguments vs `yield`[code](code/proc-and-block/proc-call-vs-yield.rb)
@@ -987,54 +986,23 @@ In MRI Ruby before 2.5, block arguments [are converted to Procs](https://www.omn
 
 ```
 $ ruby -v code/proc-and-block/proc-call-vs-yield.rb
-ruby 2.4.4p296 (2018-03-28 revision 63013) [x86_64-darwin18]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+          block.call   923.534k i/100ms
+       block + yield     1.054M i/100ms
+        unused block     1.435M i/100ms
+               yield     1.434M i/100ms
 Calculating -------------------------------------
-        block.call      1.967M (± 2.0%) i/s -      9.871M in   5.019328s
-     block + yield      2.147M (± 3.3%) i/s -     10.814M in   5.044319s
-      unused block      2.265M (± 1.9%) i/s -     11.333M in   5.004522s
-             yield     10.436M (± 1.6%) i/s -     52.260M in   5.008851s
+          block.call      9.394M (± 5.3%) i/s -     47.100M in   5.027970s
+       block + yield     10.301M (± 5.7%) i/s -     51.634M in   5.029162s
+        unused block     14.189M (± 2.0%) i/s -     71.771M in   5.060526s
+               yield     14.011M (± 3.3%) i/s -     70.258M in   5.020063s
 
 Comparison:
-             yield: 10436414.0 i/s
-      unused block:  2265399.0 i/s - 4.61x  slower
-     block + yield:  2146619.0 i/s - 4.86x  slower
-        block.call:  1967300.9 i/s - 5.30x  slower
-```
-
-MRI Ruby 2.5 implements [Lazy Proc allocation for block parameters](https://bugs.ruby-lang.org/issues/14045):
-
-```
-$ ruby -v code/proc-and-block/proc-call-vs-yield.rb
-ruby 2.5.3p105 (2018-10-18 revision 65156) [x86_64-darwin18]
-Calculating -------------------------------------
-        block.call      1.970M (± 2.3%) i/s -      9.863M in   5.009599s
-     block + yield      9.075M (± 2.6%) i/s -     45.510M in   5.018369s
-      unused block     11.176M (± 2.7%) i/s -     55.977M in   5.012741s
-             yield     10.588M (± 1.9%) i/s -     53.108M in   5.017755s
-
-Comparison:
-      unused block: 11176355.0 i/s
-             yield: 10588342.3 i/s - 1.06x  slower
-     block + yield:  9075355.5 i/s - 1.23x  slower
-        block.call:  1969834.0 i/s - 5.67x  slower
-```
-
-MRI Ruby 2.6 implements [an optimization for block.call where a block parameter is passed](https://bugs.ruby-lang.org/issues/14330):
-
-```
-$ ruby -v code/proc-and-block/proc-call-vs-yield.rb
-ruby 2.6.1p33 (2019-01-30 revision 66950) [x86_64-darwin18]
-Calculating -------------------------------------
-        block.call     10.587M (± 1.2%) i/s -     52.969M in   5.003808s
-     block + yield     12.630M (± 0.3%) i/s -     63.415M in   5.020910s
-      unused block     15.981M (± 0.8%) i/s -     80.255M in   5.022305s
-             yield     15.352M (± 3.1%) i/s -     76.816M in   5.009404s
-
-Comparison:
-      unused block: 15980789.4 i/s
-             yield: 15351931.0 i/s - 1.04x  slower
-     block + yield: 12630378.1 i/s - 1.27x  slower
-        block.call: 10587315.1 i/s - 1.51x  slower
+        unused block: 14188654.4 i/s
+               yield: 14011491.7 i/s - same-ish: difference falls within error
+       block + yield: 10301358.5 i/s - 1.38x  (± 0.00) slower
+          block.call:  9394163.2 i/s - 1.51x  (± 0.00) slower
 ```
 
 ### String
