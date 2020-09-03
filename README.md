@@ -651,17 +651,17 @@ When expecting well-formatted data from e.g. an API, `iso8601` is faster and wil
 
 ```
 $ ruby -v code/date/iso8601-vs-parse.rb
-ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-        Date.iso8601    28.880k i/100ms
-          Date.parse    15.805k i/100ms
+        Date.iso8601    50.713k i/100ms
+          Date.parse    26.987k i/100ms
 Calculating -------------------------------------
-        Date.iso8601    328.035k (± 4.7%) i/s -      1.646M in   5.029287s
-          Date.parse    175.546k (± 3.8%) i/s -    885.080k in   5.049444s
+        Date.iso8601    517.990k (± 3.0%) i/s -      2.637M in   5.095690s
+          Date.parse    262.049k (± 5.6%) i/s -      1.322M in   5.062519s
 
 Comparison:
-        Date.iso8601:   328035.3 i/s
-          Date.parse:   175545.9 i/s - 1.87x  slower
+        Date.iso8601:   517989.8 i/s
+          Date.parse:   262048.6 i/s - 1.98x  (± 0.00) slower
 ```
 
 ### Hash
