@@ -5,7 +5,7 @@ In [Erik Michaels-Ober](https://github.com/sferik)'s great talk, 'Writing Fast R
 
 Each idiom has a corresponding code example that resides in [code](code).
 
-All results listed in README.md are running with Ruby 2.2.0p0 on OS X 10.10.1. Machine information: MacBook Pro (Retina, 15-inch, Mid 2014), 2.5 GHz Intel Core i7, 16 GB 1600 MHz DDR3. Your results may vary, but you get the idea. : )
+All results listed in README.md are running with Ruby 2.7.1p83 on OS X 10.15.6. Machine information: MacBook Pro (13-inch, 2019), 2.8 GHz Intel Core i7, 16 GB 2133 MHz LPDDR3. Your results may vary, but you get the idea. : )
 
 You can checkout [the travis build](https://travis-ci.org/JuanitoFatas/fast-ruby) for these benchmark results ran against different Ruby implementations.
 
