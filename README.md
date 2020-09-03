@@ -1360,17 +1360,17 @@ When expecting well-formatted data from e.g. an API, `iso8601` is faster and wil
 
 ```
 $ ruby -v code/time/iso8601-vs-parse.rb
-ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-        Time.iso8601    10.234k i/100ms
-          Time.parse     4.228k i/100ms
+        Time.iso8601    22.951k i/100ms
+          Time.parse     7.459k i/100ms
 Calculating -------------------------------------
-        Time.iso8601    114.485k (± 3.5%) i/s -    573.104k in   5.012008s
-          Time.parse     43.711k (± 4.1%) i/s -    219.856k in   5.038349s
+        Time.iso8601    231.056k (± 3.3%) i/s -      1.171M in   5.071741s
+          Time.parse     72.246k (± 4.6%) i/s -    365.491k in   5.069954s
 
 Comparison:
-        Time.iso8601:   114485.1 i/s
-          Time.parse:    43710.9 i/s - 2.62x  slower
+        Time.iso8601:   231055.8 i/s
+          Time.parse:    72246.0 i/s - 3.20x  (± 0.00) slower
 ```
 
 ### Range
