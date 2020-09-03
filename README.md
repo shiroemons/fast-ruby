@@ -326,18 +326,17 @@ Comparison:
 
 ```
 $ ruby -v code/array/bsearch-vs-find.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
-Calculating -------------------------------------
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
                 find     1.000  i/100ms
-             bsearch    42.216k i/100ms
--------------------------------------------------
-                find      0.184  (± 0.0%) i/s -      1.000  in   5.434758s
-             bsearch    577.301k (± 6.6%) i/s -      2.913M
+             bsearch    90.489k i/100ms
+Calculating -------------------------------------
+                find      0.285  (± 0.0%) i/s -      2.000  in   7.024622s
+             bsearch    900.504k (± 2.7%) i/s -      4.524M in   5.028119s
 
 Comparison:
-             bsearch:   577300.7 i/s
-                find:        0.2 i/s - 3137489.63x slower
+             bsearch:   900504.2 i/s
+                find:        0.3 i/s - 3162173.56x  (± 0.00) slower
 ```
 
 ##### `Array#length` vs `Array#size` vs `Array#count` [code](code/array/length-vs-size-vs-count.rb)
@@ -346,21 +345,20 @@ Use `#length` when you only want to know how many elements in the array, `#count
 
 ```
 $ ruby -v code/array/length-vs-size-vs-count.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+        Array#length     2.458M i/100ms
+          Array#size     2.430M i/100ms
+         Array#count     1.722M i/100ms
 Calculating -------------------------------------
-        Array#length   172.998k i/100ms
-          Array#size   168.130k i/100ms
-         Array#count   164.911k i/100ms
--------------------------------------------------
-        Array#length     11.394M (± 6.1%) i/s -     56.743M
-          Array#size     11.303M (± 6.5%) i/s -     56.324M
-         Array#count      9.195M (± 8.6%) i/s -     45.680M
+        Array#length     24.467M (± 3.1%) i/s -    122.914M in   5.028808s
+          Array#size     24.760M (± 2.0%) i/s -    123.929M in   5.007045s
+         Array#count     17.417M (± 1.9%) i/s -     87.811M in   5.043363s
 
 Comparison:
-        Array#length: 11394036.7 i/s
-          Array#size: 11302701.1 i/s - 1.01x slower
-         Array#count:  9194976.2 i/s - 1.24x slower
+          Array#size: 24760429.4 i/s
+        Array#length: 24467238.9 i/s - same-ish: difference falls within error
+         Array#count: 17417302.2 i/s - 1.42x  (± 0.00) slower
 ```
 
 ##### `Array#shuffle.first` vs `Array#sample` [code](code/array/shuffle-first-vs-sample.rb)
@@ -372,71 +370,68 @@ Comparison:
 
 ```
 $ ruby -v code/array/shuffle-first-vs-sample.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+ Array#shuffle.first    51.714k i/100ms
+        Array#sample     1.143M i/100ms
 Calculating -------------------------------------
- Array#shuffle.first    25.406k i/100ms
-        Array#sample   125.101k i/100ms
--------------------------------------------------
- Array#shuffle.first    304.341k (± 4.3%) i/s -      1.524M
-        Array#sample      5.727M (± 8.6%) i/s -     28.523M
+ Array#shuffle.first    523.627k (± 3.3%) i/s -      2.637M in   5.042779s
+        Array#sample     12.159M (± 1.8%) i/s -     61.745M in   5.079983s
 
 Comparison:
-        Array#sample:  5727032.0 i/s
- Array#shuffle.first:   304341.1 i/s - 18.82x slower
+        Array#sample: 12158743.1 i/s
+ Array#shuffle.first:   523626.6 i/s - 23.22x  (± 0.00) slower
 ```
 
 ##### `Array#[](0)` vs `Array#first` [code](code/array/array-first-vs-index.rb)
 
 ```
 $ ruby -v code/array/array-first-vs-index.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+           Array#[0]     1.871M i/100ms
+         Array#first     1.500M i/100ms
 Calculating -------------------------------------
-           Array#[0]   152.751k i/100ms
-         Array#first   148.088k i/100ms
--------------------------------------------------
-           Array#[0]      8.614M (± 7.0%) i/s -     42.923M
-         Array#first      7.465M (±10.7%) i/s -     36.874M
+           Array#[0]     18.941M (± 1.5%) i/s -     95.404M in   5.038169s
+         Array#first     15.250M (± 1.4%) i/s -     76.483M in   5.016325s
 
 Comparison:
-           Array#[0]:  8613583.7 i/s
-         Array#first:  7464526.6 i/s - 1.15x slower
+           Array#[0]: 18940751.9 i/s
+         Array#first: 15249836.3 i/s - 1.24x  (± 0.00) slower
 ```
 
 ##### `Array#[](-1)` vs `Array#last` [code](code/array/array-last-vs-index.rb)
 
 ```
 $ ruby -v code/array/array-last-vs-index.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+          Array#[-1]     1.887M i/100ms
+          Array#last     1.454M i/100ms
 Calculating -------------------------------------
-            Array#[-1]   151.940k i/100ms
-          Array#last   153.371k i/100ms
--------------------------------------------------
-            Array#[-1]      8.582M (± 4.6%) i/s -     42.847M
-          Array#last      7.639M (± 5.7%) i/s -     38.189M
+          Array#[-1]     18.900M (± 1.9%) i/s -     96.254M in   5.094631s
+          Array#last     15.069M (± 2.8%) i/s -     75.622M in   5.022813s
 
 Comparison:
-            Array#[-1]:  8582074.3 i/s
-          Array#last:  7639254.5 i/s - 1.12x slower
+          Array#[-1]: 18899830.5 i/s
+          Array#last: 15068638.3 i/s - 1.25x  (± 0.00) slower
 ```
 
 ##### `Array#insert` vs `Array#unshift` [code](code/array/insert-vs-unshift.rb)
 
 ```
 $ ruby -v code/array/insert-vs-unshift.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin10.0]
-Calculating -------------------------------------
-       Array#unshift     4.000  i/100ms
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+       Array#unshift    15.000  i/100ms
         Array#insert     1.000  i/100ms
--------------------------------------------------
-       Array#unshift     44.947  (± 6.7%) i/s -    224.000
-        Array#insert      0.171  (± 0.0%) i/s -      1.000  in   5.841595s
+Calculating -------------------------------------
+       Array#unshift    161.795  (± 2.5%) i/s -    810.000  in   5.010085s
+        Array#insert      1.184  (± 0.0%) i/s -      6.000  in   5.067029s
 
 Comparison:
-       Array#unshift:       44.9 i/s
-        Array#insert:        0.2 i/s - 262.56x slower
+       Array#unshift:      161.8 i/s
+        Array#insert:        1.2 i/s - 136.64x  (± 0.00) slower
 ```
 
 ### Enumerable
