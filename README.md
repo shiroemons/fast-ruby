@@ -440,36 +440,34 @@ Comparison:
 
 ```
 $ ruby -v code/enumerable/each-push-vs-map.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+   Array#each + push    16.640k i/100ms
+           Array#map    24.767k i/100ms
 Calculating -------------------------------------
-   Array#each + push     9.025k i/100ms
-           Array#map    13.947k i/100ms
--------------------------------------------------
-   Array#each + push     99.634k (± 3.2%) i/s -    505.400k
-           Array#map    158.091k (± 4.2%) i/s -    794.979k
+   Array#each + push    163.483k (± 3.6%) i/s -    832.000k in   5.095726s
+           Array#map    247.394k (± 3.6%) i/s -      1.238M in   5.012038s
 
 Comparison:
-           Array#map:   158090.9 i/s
-   Array#each + push:    99634.2 i/s - 1.59x slower
+           Array#map:   247394.5 i/s
+   Array#each + push:   163483.1 i/s - 1.51x  (± 0.00) slower
 ```
 
 ##### `Enumerable#each` vs `for` loop [code](code/enumerable/each-vs-for-loop.rb)
 
 ```
 $ ruby -v code/enumerable/each-vs-for-loop.rb
-ruby 2.2.0preview1 (2014-09-17 trunk 47616) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+            For loop    28.170k i/100ms
+               #each    30.242k i/100ms
 Calculating -------------------------------------
-            For loop    17.111k i/100ms
-               #each    18.464k i/100ms
--------------------------------------------------
-            For loop    198.517k (± 5.3%) i/s -    992.438k
-               #each    208.157k (± 5.0%) i/s -      1.052M
+            For loop    289.778k (± 2.1%) i/s -      1.465M in   5.057193s
+               #each    300.252k (± 2.6%) i/s -      1.512M in   5.039649s
 
 Comparison:
-               #each:   208157.4 i/s
-            For loop:   198517.3 i/s - 1.05x slower
+               #each:   300251.9 i/s
+            For loop:   289778.4 i/s - same-ish: difference falls within error
 ```
 
 ##### `Enumerable#each_with_index` vs `while` loop [code](code/enumerable/each_with_index-vs-while-loop.rb)
@@ -478,18 +476,18 @@ Comparison:
 
 ```
 $ ruby -v code/enumerable/each_with_index-vs-while-loop.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+code/enumerable/each_with_index-vs-while-loop.rb:8: warning: possibly useless use of + in void context
+Warming up --------------------------------------
+          While Loop    42.577k i/100ms
+     each_with_index    20.899k i/100ms
 Calculating -------------------------------------
-          While Loop    22.553k i/100ms
-     each_with_index    11.963k i/100ms
--------------------------------------------------
-          While Loop    240.752k (± 7.1%) i/s -      1.218M
-     each_with_index    126.753k (± 5.9%) i/s -    634.039k
+          While Loop    431.893k (± 1.9%) i/s -      2.171M in   5.029458s
+     each_with_index    206.034k (± 2.5%) i/s -      1.045M in   5.074891s
 
 Comparison:
-          While Loop:   240752.1 i/s
-     each_with_index:   126753.4 i/s - 1.90x slower
+          While Loop:   431892.6 i/s
+     each_with_index:   206033.6 i/s - 2.10x  (± 0.00) slower
 ```
 
 ##### `Enumerable#map`...`Array#flatten` vs `Enumerable#flat_map` [code](code/enumerable/map-flatten-vs-flat_map.rb)
@@ -498,21 +496,20 @@ Comparison:
 
 ```
 $ ruby -v code/enumerable/map-flatten-vs-flat_map.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Array#map.flatten(1)     7.283k i/100ms
+   Array#map.flatten     4.654k i/100ms
+      Array#flat_map    10.834k i/100ms
 Calculating -------------------------------------
-Array#map.flatten(1)     3.315k i/100ms
-   Array#map.flatten     3.283k i/100ms
-      Array#flat_map     5.350k i/100ms
--------------------------------------------------
-Array#map.flatten(1)     33.801k (± 4.3%) i/s -    169.065k
-   Array#map.flatten     34.530k (± 6.0%) i/s -    173.999k
-      Array#flat_map     55.980k (± 5.0%) i/s -    283.550k
+Array#map.flatten(1)     71.676k (± 4.1%) i/s -    364.150k in   5.089419s
+   Array#map.flatten     47.664k (± 3.3%) i/s -    242.008k in   5.083880s
+      Array#flat_map    107.644k (± 2.1%) i/s -    541.700k in   5.034516s
 
 Comparison:
-      Array#flat_map:    55979.6 i/s
-   Array#map.flatten:    34529.6 i/s - 1.62x slower
-Array#map.flatten(1):    33800.6 i/s - 1.66x slower
+      Array#flat_map:   107643.9 i/s
+Array#map.flatten(1):    71676.3 i/s - 1.50x  (± 0.00) slower
+   Array#map.flatten:    47664.1 i/s - 2.26x  (± 0.00) slower
 ```
 
 ##### `Enumerable#reverse.each` vs `Enumerable#reverse_each` [code](code/enumerable/reverse-each-vs-reverse_each.rb)
@@ -524,18 +521,17 @@ Array#map.flatten(1):    33800.6 i/s - 1.66x slower
 
 ```
 $ ruby -v code/enumerable/reverse-each-vs-reverse_each.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+  Array#reverse.each    28.172k i/100ms
+  Array#reverse_each    27.519k i/100ms
 Calculating -------------------------------------
-  Array#reverse.each    16.746k i/100ms
-  Array#reverse_each    18.590k i/100ms
--------------------------------------------------
-  Array#reverse.each    190.729k (± 4.8%) i/s -    954.522k
-  Array#reverse_each    216.060k (± 4.3%) i/s -      1.078M
+  Array#reverse.each    281.519k (± 1.5%) i/s -      1.409M in   5.004745s
+  Array#reverse_each    289.955k (± 1.6%) i/s -      1.459M in   5.031426s
 
 Comparison:
-  Array#reverse_each:   216060.5 i/s
-  Array#reverse.each:   190729.1 i/s - 1.13x slower
+  Array#reverse_each:   289955.0 i/s
+  Array#reverse.each:   281518.8 i/s - same-ish: difference falls within error
 ```
 
 ##### `Enumerable#sort_by.first` vs `Enumerable#min_by` [code](code/enumerable/sort_by-first-vs-min_by.rb)
@@ -548,76 +544,81 @@ Similar comparisons hold for `Enumerable#sort_by.last` vs
 
 ```
 $ ruby -v code/enumerable/sort_by-first-vs-min_by.rb
-ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin17]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-   Enumerable#min_by    15.170k i/100ms
+   Enumerable#min_by    20.196k i/100ms
 Enumerable#sort_by...first
-                        10.413k i/100ms
+                        12.315k i/100ms
 Calculating -------------------------------------
-   Enumerable#min_by    157.877k (± 0.9%) i/s -    804.010k in   5.093048s
+   Enumerable#min_by    203.958k (± 2.0%) i/s -      1.030M in   5.052186s
 Enumerable#sort_by...first
-                        106.831k (± 1.3%) i/s -    541.476k in   5.069403s
+                        125.821k (± 2.3%) i/s -    640.380k in   5.092372s
 
 Comparison:
-   Enumerable#min_by:   157877.0 i/s
-Enumerable#sort_by...first:   106831.1 i/s - 1.48x  slower
+   Enumerable#min_by:   203957.8 i/s
+Enumerable#sort_by...first:   125821.3 i/s - 1.62x  (± 0.00) slower
 ```
 
 ##### `Enumerable#detect` vs `Enumerable#select.first` [code](code/enumerable/select-first-vs-detect.rb)
 
 ```
 $ ruby -v code/enumerable/select-first-vs-detect.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Enumerable#select.first
+                        17.203k i/100ms
+   Enumerable#detect    77.640k i/100ms
 Calculating -------------------------------------
-Enumerable#select.first  8.515k i/100ms
-   Enumerable#detect    33.885k i/100ms
--------------------------------------------------
-Enumerable#select.first  89.757k (± 5.0%) i/s -      1.797M
-   Enumerable#detect    434.304k (± 5.2%) i/s -      8.675M
+Enumerable#select.first
+                        176.326k (± 2.4%) i/s -      3.527M in  20.013026s
+   Enumerable#detect    769.312k (± 7.0%) i/s -     15.373M in  20.093882s
 
 Comparison:
-   Enumerable#detect:   434304.2 i/s
-Enumerable#select.first:    89757.4 i/s - 4.84x slower
+   Enumerable#detect:   769311.6 i/s
+Enumerable#select.first:   176325.7 i/s - 4.36x  (± 0.00) slower
 ```
 
 ##### `Enumerable#select.last` vs `Enumerable#reverse.detect` [code](code/enumerable/select-last-vs-reverse-detect.rb)
 
 ```
 $ ruby -v code/enumerable/select-last-vs-reverse-detect.rb
-ruby 2.2.0p0 (2014-12-25 revision 49005) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Enumerable#reverse.detect
+                       237.559k i/100ms
+Enumerable#select.last
+                        16.006k i/100ms
 Calculating -------------------------------------
-Enumerable#reverse.detect 62.636k i/100ms
-Enumerable#select.last    11.687k i/100ms
--------------------------------------------------
-Enumerable#reverse.detect 1.263M (± 8.2%) i/s -      6.326M
-Enumerable#select.last  119.387k (± 5.7%) i/s -    596.037k
+Enumerable#reverse.detect
+                          2.568M (± 3.7%) i/s -     12.828M in   5.002892s
+Enumerable#select.last
+                        163.286k (± 2.6%) i/s -    816.306k in   5.002720s
 
 Comparison:
-Enumerable#reverse.detect:  1263100.2 i/s
-Enumerable#select.last:     119386.8 i/s - 10.58x slower
+Enumerable#reverse.detect:  2567862.4 i/s
+Enumerable#select.last:   163286.0 i/s - 15.73x  (± 0.00) slower
 ```
 
 ##### `Enumerable#sort` vs `Enumerable#sort_by` [code](code/enumerable/sort-vs-sort_by.rb)
 
 ```
 $ ruby -v code/enumerable/sort-vs-sort_by.rb
-ruby 2.2.2p95 (2015-04-13 revision 50295) [x86_64-darwin14]
-
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+Warming up --------------------------------------
+Enumerable#sort_by (Symbol#to_proc)
+                         4.915k i/100ms
+  Enumerable#sort_by     5.253k i/100ms
+     Enumerable#sort     1.517k i/100ms
 Calculating -------------------------------------
-Enumerable#sort_by (Symbol#to_proc) 2.680k i/100ms
-  Enumerable#sort_by                2.462k i/100ms
-     Enumerable#sort                1.320k i/100ms
--------------------------------------------------
-Enumerable#sort_by (Symbol#to_proc) 25.916k (± 4.4%) i/s -    131.320k
-  Enumerable#sort_by                24.650k (± 5.1%) i/s -    125.562k
-     Enumerable#sort                14.018k (± 5.6%) i/s -     69.960k
+Enumerable#sort_by (Symbol#to_proc)
+                         51.521k (± 2.1%) i/s -    260.495k in   5.058526s
+  Enumerable#sort_by     52.384k (± 2.6%) i/s -    262.650k in   5.017377s
+     Enumerable#sort     15.334k (± 2.8%) i/s -     77.367k in   5.049743s
 
 Comparison:
-Enumerable#sort_by (Symbol#to_proc):    25916.1 i/s
-  Enumerable#sort_by:                   24650.2 i/s - 1.05x slower
-     Enumerable#sort:                   14018.3 i/s - 1.85x slower
+  Enumerable#sort_by:    52384.3 i/s
+Enumerable#sort_by (Symbol#to_proc):    51520.6 i/s - same-ish: difference falls within error
+     Enumerable#sort:    15333.8 i/s - 3.42x  (± 0.00) slower
 ```
 
 ##### `Enumerable#inject Symbol` vs `Enumerable#inject Proc` [code](code/enumerable/inject-symbol-vs-block.rb)
@@ -626,20 +627,20 @@ Of note, `to_proc` for 1.8.7 is considerable slower than the block format
 
 ```
 $ ruby -v code/enumerable/inject-symbol-vs-block.rb
-ruby 2.2.4p230 (2015-12-16 revision 53155) [x86_64-darwin14]
+ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
 Warming up --------------------------------------
-       inject symbol     1.893k i/100ms
-      inject to_proc     1.583k i/100ms
-        inject block     1.390k i/100ms
+       inject symbol    56.770k i/100ms
+      inject to_proc     1.544k i/100ms
+        inject block     2.174k i/100ms
 Calculating -------------------------------------
-       inject symbol     19.001k (± 3.8%) i/s -     96.543k
-      inject to_proc     15.958k (± 3.5%) i/s -     80.733k
-        inject block     14.063k (± 3.9%) i/s -     70.890k
+       inject symbol    587.569k (± 1.7%) i/s -      2.952M in   5.025604s
+      inject to_proc     15.411k (± 2.8%) i/s -     77.200k in   5.013712s
+        inject block     22.103k (± 3.7%) i/s -    110.874k in   5.023225s
 
 Comparison:
-       inject symbol:    19001.5 i/s
-      inject to_proc:    15958.3 i/s - 1.19x slower
-        inject block:    14063.1 i/s - 1.35x slower
+       inject symbol:   587569.3 i/s
+        inject block:    22103.1 i/s - 26.58x  (± 0.00) slower
+      inject to_proc:    15410.6 i/s - 38.13x  (± 0.00) slower
 ```
 
 ### Date
