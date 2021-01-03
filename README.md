@@ -5,7 +5,7 @@ In [Erik Michaels-Ober](https://github.com/sferik)'s great talk, 'Writing Fast R
 
 Each idiom has a corresponding code example that resides in [code](code).
 
-All results listed in README.md are running with Ruby 2.7.1p83 on OS X 10.15.6. Machine information: MacBook Pro (13-inch, 2019), 2.8 GHz Intel Core i7, 16 GB 2133 MHz LPDDR3. Your results may vary, but you get the idea. : )
+All results listed in README.md are running with Ruby 2.7.2p137, 3.0.0p0 and 3.0.0p0 + JIT on OS X 11.1 Machine information: Mac mini (2018), 3.2 GHz 6 Core Intel Core i7, 64 GB 2667 MHz DDR4. Your results may vary, but you get the idea. : )
 
 You can checkout [the travis build](https://travis-ci.org/JuanitoFatas/fast-ruby) for these benchmark results ran against different Ruby implementations.
 
@@ -60,7 +60,7 @@ Idioms
 
 [Read the rationale here](https://github.com/JuanitoFatas/fast-ruby/pull/50#issue-98586885).
 
-```
+```sh
 $ ruby -v --jit code/general/assignment.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -77,7 +77,7 @@ Comparison:
 Sequential Assignment: 19846591.9 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/general/assignment.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -94,7 +94,7 @@ Sequential Assignment: 13252013.1 i/s
  Parallel Assignment: 12672578.4 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/general/assignment.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -115,7 +115,7 @@ Sequential Assignment: 12760999.8 i/s - same-ish: difference falls within error
 
 > https://www.omniref.com/ruby/2.2.0/files/method.h?#annotation=4081781&line=47
 
-```
+```sh
 $ ruby -v --jit code/general/attr-accessor-vs-getter-and-setter.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -130,7 +130,7 @@ Comparison:
        attr_accessor:  5700138.9 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/general/attr-accessor-vs-getter-and-setter.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -145,7 +145,7 @@ Comparison:
    getter_and_setter:  4761946.0 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/general/attr-accessor-vs-getter-and-setter.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -162,7 +162,7 @@ Comparison:
 
 ##### `begin...rescue` vs `respond_to?` for Control Flow [code](code/general/begin-rescue-vs-respond-to.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/begin-rescue-vs-respond-to.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -177,7 +177,7 @@ Comparison:
       begin...rescue:   737320.3 i/s - 12.55x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/begin-rescue-vs-respond-to.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -192,7 +192,7 @@ Comparison:
       begin...rescue:   783394.5 i/s - 10.39x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/begin-rescue-vs-respond-to.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -209,7 +209,7 @@ Comparison:
 
 ##### `define_method` vs `module_eval` for Defining Methods [code](code/general/define_method-vs-module-eval.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/define_method-vs-module-eval.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -226,7 +226,7 @@ Comparison:
 module_eval with string:     2238.3 i/s - 1.47x  (± 0.00) slower
 ```
 
-```
+```sh
 ruby -v code/general/define_method-vs-module-eval.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -243,7 +243,7 @@ Comparison:
 module_eval with string:     2353.1 i/s - 1.45x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/define_method-vs-module-eval.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -264,7 +264,7 @@ module_eval with string:     2390.3 i/s - 1.61x  (± 0.00) slower
 
 Ruby's [Exception2MessageMapper module](http://ruby-doc.org/stdlib-2.2.0/libdoc/e2mmap/rdoc/index.html) allows one to define and raise exceptions with predefined messages.
 
-```
+```sh
 $ ruby -v code/general/raise-vs-e2mmap.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 <internal:/Users/xxxxxx/.rbenv/versions/3.0.0/lib/ruby/3.0.0/rubygems/core_ext/kernel_require.rb>:85:in `require': cannot load such file -- e2mmap (LoadError)
@@ -272,7 +272,7 @@ ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 	from code/general/raise-vs-e2mmap.rb:2:in `<main>'
 ```
 
-```
+```sh
 $ ruby -v code/general/raise-vs-e2mmap.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Traceback (most recent call last):
@@ -283,7 +283,7 @@ Traceback (most recent call last):
 
 ##### `loop` vs `while true` [code](code/general/loop-vs-while-true.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/loop-vs-while-true.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -298,8 +298,8 @@ Comparison:
          Kernel loop:        0.3 i/s - 2.97x  (± 0.00) slower
 ```
 
-```
-ruby -v code/general/loop-vs-while-true.rb
+```sh
+$ ruby -v code/general/loop-vs-while-true.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
           While Loop     1.000  i/100ms
@@ -313,7 +313,7 @@ Comparison:
          Kernel loop:        0.2 i/s - 3.69x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/loop-vs-while-true.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -330,7 +330,7 @@ Comparison:
 
 ##### `ancestors.include?` vs `<=` [code](code/general/inheritance-check.rb)
 
-```
+```sh
 $ ruby -vW0 --jit code/general/inheritance-check.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -345,7 +345,7 @@ Comparison:
   ancestors.include?:  1426613.1 i/s - 6.74x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -vW0 code/general/inheritance-check.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -360,7 +360,7 @@ Comparison:
   ancestors.include?:  1243526.7 i/s - 4.71x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -vW0 code/general/inheritance-check.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -379,7 +379,7 @@ Comparison:
 
 ##### `call` vs `send` vs `method_missing` [code](code/method/call-vs-send-vs-method_missing.rb)
 
-```
+```sh
 $ ruby -v --jit code/method/call-vs-send-vs-method_missing.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -397,7 +397,7 @@ Comparison:
       method_missing:  4309345.5 i/s - 1.85x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/method/call-vs-send-vs-method_missing.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -415,7 +415,7 @@ Comparison:
       method_missing:  3802528.2 i/s - 1.65x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/method/call-vs-send-vs-method_missing.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -435,7 +435,7 @@ Comparison:
 
 ##### Normal way to apply method vs `&method(...)` [code](code/general/block-apply-method.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/block-apply-method.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -450,7 +450,7 @@ Comparison:
              &method:   901751.1 i/s - 4.16x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/block-apply-method.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -465,7 +465,7 @@ Comparison:
              &method:   945800.2 i/s - 3.38x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/block-apply-method.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -482,7 +482,7 @@ Comparison:
 
 ##### Function with single Array argument vs splat arguments [code](code/general/array-argument-vs-splat-arguments.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/array-argument-vs-splat-arguments.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -501,7 +501,7 @@ Function with single Array argument:  9040320.5 i/s
 Function with splat arguments:   158732.8 i/s - 56.95x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/array-argument-vs-splat-arguments.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -520,7 +520,7 @@ Function with single Array argument:  8877887.5 i/s
 Function with splat arguments:   209608.1 i/s - 42.35x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/array-argument-vs-splat-arguments.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -541,7 +541,7 @@ Function with splat arguments:   200708.1 i/s - 44.49x  (± 0.00) slower
 
 ##### Hash vs OpenStruct on access assuming you already have a Hash or an OpenStruct [code](code/general/hash-vs-openstruct-on-access.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/hash-vs-openstruct-on-access.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -556,7 +556,7 @@ Comparison:
           OpenStruct:  5398976.2 i/s - 2.03x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/hash-vs-openstruct-on-access.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -571,7 +571,7 @@ Comparison:
           OpenStruct:  4801378.3 i/s - 2.02x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/hash-vs-openstruct-on-access.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -588,7 +588,7 @@ Comparison:
 
 ##### Hash vs OpenStruct (creation) [code](code/general/hash-vs-openstruct.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/hash-vs-openstruct.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -603,7 +603,7 @@ Comparison:
           OpenStruct:    99262.8 i/s - 127.73x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/hash-vs-openstruct.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -618,7 +618,7 @@ Comparison:
           OpenStruct:   104733.1 i/s - 106.62x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/hash-vs-openstruct.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -635,7 +635,7 @@ Comparison:
 
 ##### Kernel#format vs Float#round().to_s [code](code/general/format-vs-round-and-to-s.rb)
 
-```
+```sh
 $ ruby -v --jit code/general/format-vs-round-and-to-s.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -653,7 +653,7 @@ Comparison:
             String#%:  1542045.6 i/s - 1.65x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/format-vs-round-and-to-s.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -671,7 +671,7 @@ Comparison:
             String#%:  1502325.0 i/s - 1.58x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/general/format-vs-round-and-to-s.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -695,7 +695,7 @@ Comparison:
 
 **WARNING:** `bsearch` ONLY works on *sorted array*. More details please see [#29](https://github.com/JuanitoFatas/fast-ruby/issues/29).
 
-```
+```sh
 $ ruby -v --jit code/array/bsearch-vs-find.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -710,7 +710,7 @@ Comparison:
                 find:        0.3 i/s - 3468142.14x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/bsearch-vs-find.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -725,7 +725,7 @@ Comparison:
                 find:        0.3 i/s - 3317277.66x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/bsearch-vs-find.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -744,7 +744,7 @@ Comparison:
 
 Use `#length` when you only want to know how many elements in the array, `#count` could also achieve this. However `#count` should be use for counting specific elements in array. [Note `#size` is an alias of `#length`](https://github.com/ruby/ruby/blob/f8fb526ad9e9f31453bffbc908b6a986736e21a7/array.c#L5817-L5818).
 
-```
+```sh
 $ ruby -v --jit code/array/length-vs-size-vs-count.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -762,7 +762,7 @@ Comparison:
          Array#count: 17981427.7 i/s - 1.39x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/length-vs-size-vs-count.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -780,7 +780,7 @@ Comparison:
          Array#count: 16480215.2 i/s - 1.45x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/length-vs-size-vs-count.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -805,7 +805,7 @@ Comparison:
 > This is the reason why Array#sample exists. <br>
 > —— @sferik [rails/rails#17245](https://github.com/rails/rails/pull/17245)
 
-```
+```sh
 $ ruby -v --jit code/array/shuffle-first-vs-sample.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -820,7 +820,7 @@ Comparison:
  Array#shuffle.first:   416282.3 i/s - 18.74x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/shuffle-first-vs-sample.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -835,7 +835,7 @@ Comparison:
  Array#shuffle.first:   417075.2 i/s - 16.53x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/shuffle-first-vs-sample.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -852,7 +852,7 @@ Comparison:
 
 ##### `Array#[](0)` vs `Array#first` [code](code/array/array-first-vs-index.rb)
 
-```
+```sh
 $ ruby -v --jit code/array/array-first-vs-index.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -867,7 +867,7 @@ Comparison:
          Array#first: 17061234.2 i/s - 1.26x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/array-first-vs-index.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -882,7 +882,7 @@ Comparison:
          Array#first: 14510612.9 i/s - 1.26x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/array-first-vs-index.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -899,7 +899,7 @@ Comparison:
 
 ##### `Array#[](-1)` vs `Array#last` [code](code/array/array-last-vs-index.rb)
 
-```
+```sh
 $ ruby -v --jit code/array/array-last-vs-index.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -914,7 +914,7 @@ Comparison:
           Array#last: 17539017.0 i/s - 1.21x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/array-last-vs-index.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -929,7 +929,7 @@ Comparison:
           Array#last: 14483337.4 i/s - 1.18x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/array-last-vs-index.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -946,7 +946,7 @@ Comparison:
 
 ##### `Array#insert` vs `Array#unshift` [code](code/array/insert-vs-unshift.rb)
 
-```
+```sh
 $ ruby -v --jit code/array/insert-vs-unshift.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -961,7 +961,7 @@ Comparison:
         Array#insert:        1.2 i/s - 155.59x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/insert-vs-unshift.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -976,7 +976,7 @@ Comparison:
         Array#insert:        1.2 i/s - 133.24x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/array/insert-vs-unshift.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -995,7 +995,7 @@ Comparison:
 
 ##### `Enumerable#each + push` vs `Enumerable#map` [code](code/enumerable/each-push-vs-map.rb)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/each-push-vs-map.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1010,7 +1010,7 @@ Comparison:
    Array#each + push:   170628.6 i/s - 1.66x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/each-push-vs-map.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1025,7 +1025,7 @@ Comparison:
    Array#each + push:   152391.1 i/s - 1.70x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/each-push-vs-map.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1042,7 +1042,7 @@ Comparison:
 
 ##### `Enumerable#each` vs `for` loop [code](code/enumerable/each-vs-for-loop.rb)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/each-vs-for-loop.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1057,7 +1057,7 @@ Comparison:
             For loop:   304155.2 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/each-vs-for-loop.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1072,7 +1072,7 @@ Comparison:
             For loop:   256259.6 i/s - 1.13x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/each-vs-for-loop.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1091,7 +1091,7 @@ Comparison:
 
 > [rails/rails#12065](https://github.com/rails/rails/pull/12065)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/each_with_index-vs-while-loop.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 code/enumerable/each_with_index-vs-while-loop.rb:8: warning: possibly useless use of + in void context
@@ -1107,7 +1107,7 @@ Comparison:
      each_with_index:   180197.1 i/s - 6.35x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/each_with_index-vs-while-loop.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 code/enumerable/each_with_index-vs-while-loop.rb:8: warning: possibly useless use of + in void context
@@ -1123,7 +1123,7 @@ Comparison:
      each_with_index:   174926.8 i/s - 2.42x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/each_with_index-vs-while-loop.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 code/enumerable/each_with_index-vs-while-loop.rb:8: warning: possibly useless use of + in void context
@@ -1143,7 +1143,7 @@ Comparison:
 
 > -- @sferik [rails/rails@3413b88](https://github.com/rails/rails/commit/3413b88), [Replace map.flatten with flat_map](https://github.com/rails/rails/commit/817fe31196dd59ee31f71ef1740122b6759cf16d), [Replace map.flatten(1) with flat_map](https://github.com/rails/rails/commit/b11ebf1d80e4fb124f0ce0448cea30988256da59)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/map-flatten-vs-flat_map.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1161,7 +1161,7 @@ Array#map.flatten(1):    90813.9 i/s - 1.16x  (± 0.00) slower
    Array#map.flatten:    41822.3 i/s - 2.53x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/map-flatten-vs-flat_map.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1179,7 +1179,7 @@ Array#map.flatten(1):    88472.0 i/s - 1.13x  (± 0.00) slower
    Array#map.flatten:    41856.3 i/s - 2.38x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/map-flatten-vs-flat_map.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1204,7 +1204,7 @@ Array#map.flatten(1):    69277.8 i/s - 1.49x  (± 0.00) slower
 > This is the reason why `Enumerable#reverse_each` exists. <br>
 > -- @sferik [rails/rails#17244](https://github.com/rails/rails/pull/17244)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/reverse-each-vs-reverse_each.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1219,7 +1219,7 @@ Comparison:
   Array#reverse.each:   317826.1 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/reverse-each-vs-reverse_each.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1234,7 +1234,7 @@ Comparison:
   Array#reverse.each:   286776.6 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/reverse-each-vs-reverse_each.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1257,7 +1257,7 @@ Similar comparisons hold for `Enumerable#sort_by.last` vs
 `Enumerable#max_by`, `Enumerable#sort.first` vs `Enumerable#min`, and
 `Enumerable#sort.last` vs `Enumerable#max`.
 
-```
+```sh
 $ ruby -v --jit code/enumerable/sort_by-first-vs-min_by.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1274,7 +1274,7 @@ Comparison:
 Enumerable#sort_by...first:    99156.1 i/s - 1.76x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/sort_by-first-vs-min_by.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1291,7 +1291,7 @@ Comparison:
 Enumerable#sort_by...first:   101481.0 i/s - 1.62x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/sort_by-first-vs-min_by.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1310,7 +1310,7 @@ Enumerable#sort_by...first:   126901.2 i/s - 1.64x  (± 0.00) slower
 
 ##### `Enumerable#detect` vs `Enumerable#select.first` [code](code/enumerable/select-first-vs-detect.rb)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/select-first-vs-detect.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1327,7 +1327,7 @@ Comparison:
 Enumerable#select.first:   200679.8 i/s - 4.22x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/select-first-vs-detect.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1344,7 +1344,7 @@ Comparison:
 Enumerable#select.first:   171708.4 i/s - 4.42x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/select-first-vs-detect.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1363,7 +1363,7 @@ Enumerable#select.first:   178364.5 i/s - 4.54x  (± 0.00) slower
 
 ##### `Enumerable#select.last` vs `Enumerable#reverse.detect` [code](code/enumerable/select-last-vs-reverse-detect.rb)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/select-last-vs-reverse-detect.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1382,7 +1382,7 @@ Enumerable#reverse.detect:  2766456.2 i/s
 Enumerable#select.last:   266757.3 i/s - 10.37x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/select-last-vs-reverse-detect.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1401,7 +1401,7 @@ Enumerable#reverse.detect:  2525672.9 i/s
 Enumerable#select.last:   166951.3 i/s - 15.13x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/select-last-vs-reverse-detect.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1422,7 +1422,7 @@ Enumerable#select.last:   167625.7 i/s - 15.05x  (± 0.00) slower
 
 ##### `Enumerable#sort` vs `Enumerable#sort_by` [code](code/enumerable/sort-vs-sort_by.rb)
 
-```
+```sh
 $ ruby -v --jit code/enumerable/sort-vs-sort_by.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1442,7 +1442,7 @@ Enumerable#sort_by (Symbol#to_proc):    41294.0 i/s - same-ish: difference falls
      Enumerable#sort:    18600.6 i/s - 2.25x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/sort-vs-sort_by.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1462,7 +1462,7 @@ Enumerable#sort_by (Symbol#to_proc):    44742.4 i/s
      Enumerable#sort:    15837.4 i/s - 2.83x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/sort-vs-sort_by.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1486,7 +1486,7 @@ Enumerable#sort_by (Symbol#to_proc):    50659.0 i/s - same-ish: difference falls
 
 Of note, `to_proc` for 1.8.7 is considerable slower than the block format
 
-```
+```sh
 $ ruby -v --jit code/enumerable/inject-symbol-vs-block.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1504,7 +1504,7 @@ Comparison:
       inject to_proc:    16512.4 i/s - 33.35x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/inject-symbol-vs-block.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1522,7 +1522,7 @@ Comparison:
       inject to_proc:    16550.5 i/s - 33.44x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/enumerable/inject-symbol-vs-block.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1546,7 +1546,7 @@ Comparison:
 
 When expecting well-formatted data from e.g. an API, `iso8601` is faster and will raise an `ArgumentError` on malformed input.
 
-```
+```sh
 $ ruby -v --jit code/date/iso8601-vs-parse.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1561,7 +1561,7 @@ Comparison:
           Date.parse:   262846.4 i/s - 1.93x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/date/iso8601-vs-parse.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1576,7 +1576,7 @@ Comparison:
           Date.parse:   272696.2 i/s - 1.93x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/date/iso8601-vs-parse.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1598,7 +1598,7 @@ Comparison:
 If you use Ruby 2.2, `Symbol` could be more performant than `String` as `Hash` keys.
 Read more regarding this: [Symbol GC in Ruby 2.2](http://www.sitepoint.com/symbol-gc-ruby-2-2/) and [Unraveling String Key Performance in Ruby 2.2](http://www.sitepoint.com/unraveling-string-key-performance-ruby-2-2/).
 
-```
+```sh
 $ ruby -v --jit code/hash/bracket-vs-fetch.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1619,7 +1619,7 @@ Comparison:
   Hash#fetch, string:  8678826.6 i/s - 2.09x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/bracket-vs-fetch.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1640,7 +1640,7 @@ Comparison:
   Hash#fetch, string:  7840176.0 i/s - 2.05x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/bracket-vs-fetch.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1667,7 +1667,7 @@ Comparison:
 and performant option for retrieval from a nested hash, returning `nil` if an extraction step fails.
 See [#102 (comment)](https://github.com/JuanitoFatas/fast-ruby/pull/102#issuecomment-198827506) for more info.
 
-```
+```sh
 $ ruby -v --jit code/hash/dig-vs-\[\]-vs-fetch.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1694,7 +1694,7 @@ Comparison:
  Hash#fetch fallback:  4650644.5 i/s - 2.29x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/dig-vs-\[\]-vs-fetch.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1721,7 +1721,7 @@ Comparison:
  Hash#fetch fallback:  3825333.9 i/s - 2.63x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/dig-vs-\[\]-vs-fetch.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1757,7 +1757,7 @@ Source: http://tenderlovemaking.com/2015/02/11/weird-stuff-with-hashes.html
 > Please please please don’t change all of your code because
 > this shows it’s faster. Make sure to measure your app performance first.
 
-```
+```sh
 $ ruby -v --jit code/hash/bracket-vs-dup.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1772,7 +1772,7 @@ Comparison:
             Hash#dup:  1101909.7 i/s - 1.61x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/bracket-vs-dup.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1787,7 +1787,7 @@ Comparison:
             Hash#dup:  1125573.7 i/s - 1.52x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/bracket-vs-dup.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1809,7 +1809,7 @@ Comparison:
 > something of that sort the argument version is actually slightly faster <br>
 > See also [#39 (comment)](https://github.com/JuanitoFatas/fast-ruby/issues/39#issuecomment-103989335)
 
-```
+```sh
 $ ruby -v --jit code/hash/fetch-vs-fetch-with-block.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1827,7 +1827,7 @@ Comparison:
     Hash#fetch + arg: 10915450.7 i/s - 1.47x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/fetch-vs-fetch-with-block.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1845,7 +1845,7 @@ Comparison:
     Hash#fetch + arg: 11042449.5 i/s - 1.33x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/fetch-vs-fetch-with-block.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1870,7 +1870,7 @@ Comparison:
 > This is the reason why `Hash#each_key` exists.  <br>
 > —— @sferik [rails/rails#17099](https://github.com/rails/rails/pull/17099)
 
-```
+```sh
 $ ruby -v --jit code/hash/keys-each-vs-each_key.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1885,7 +1885,7 @@ Comparison:
       Hash#keys.each:  1776959.9 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/hash/keys-each-vs-each_key.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1900,7 +1900,7 @@ Comparison:
       Hash#keys.each:  1657193.9 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/hash/keys-each-vs-each_key.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1920,7 +1920,7 @@ Comparison:
 > `Hash#keys.include?` allocates an array of keys and performs an O(n) search; <br>
 > `Hash#key?` performs an O(1) hash lookup without allocating a new array.
 
-```
+```sh
 $ ruby -v --jit code/hash/keys-include-vs-key.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1935,7 +1935,7 @@ Comparison:
   Hash#keys.include?:    19118.2 i/s - 586.79x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/keys-include-vs-key.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1950,7 +1950,7 @@ Comparison:
   Hash#keys.include?:    13116.1 i/s - 743.63x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/keys-include-vs-key.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -1970,7 +1970,7 @@ Comparison:
 > `Hash#values.include?` allocates an array of values and performs an O(n) search; <br>
 > `Hash#value?` performs an O(n) search without allocating a new array.
 
-```
+```sh
 $ ruby -v --jit code/hash/values-include-vs-value.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -1985,7 +1985,7 @@ Hash#values.include?:    22630.9 i/s
          Hash#value?:    21366.8 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/hash/values-include-vs-value.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2000,7 +2000,7 @@ Hash#values.include?:    16953.1 i/s
          Hash#value?:    14432.9 i/s - 1.17x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/values-include-vs-value.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2017,7 +2017,7 @@ Hash#values.include?:    10006.5 i/s
 
 ##### `Hash#merge!` vs `Hash#[]=` [code](code/hash/merge-bang-vs-\[\]=.rb)
 
-```
+```sh
 $ ruby -v --jit code/hash/merge-bang-vs-\[\]=.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2032,7 +2032,7 @@ Comparison:
          Hash#merge!:    40487.4 i/s - 2.35x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-bang-vs-\[\]=.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2047,7 +2047,7 @@ Comparison:
          Hash#merge!:    39980.1 i/s - 2.21x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-bang-vs-\[\]=.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2064,7 +2064,7 @@ Comparison:
 
 ##### `Hash#merge` vs `Hash#**other` [code](code/hash/merge-vs-double-splat-operator.rb)
 
-```
+```sh
 $ ruby -v --jit code/hash/merge-vs-double-splat-operator.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2079,7 +2079,7 @@ Comparison:
           Hash#merge:  3629617.5 i/s - 1.23x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-vs-double-splat-operator.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2094,7 +2094,7 @@ Comparison:
           Hash#merge:  3516887.8 i/s - 1.16x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-vs-double-splat-operator.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2111,7 +2111,7 @@ Comparison:
 
 ##### `Hash#merge` vs `Hash#merge!` [code](code/hash/merge-vs-merge-bang.rb)
 
-```
+```sh
 $ ruby -v --jit code/hash/merge-vs-merge-bang.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2126,7 +2126,7 @@ Comparison:
           Hash#merge:    12453.1 i/s - 3.21x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-vs-merge-bang.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2141,7 +2141,7 @@ Comparison:
           Hash#merge:    12490.5 i/s - 3.13x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-vs-merge-bang.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2161,7 +2161,7 @@ Comparison:
 > When we don't want to modify the original hash, and we want duplicates to be created <br>
 > See [#42](https://github.com/JuanitoFatas/fast-ruby/pull/42#issue-93502261) for more details.
 
-```
+```sh
 $ ruby -v --jit code/hash/merge-bang-vs-merge-vs-dup-merge-bang.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2181,7 +2181,7 @@ Comparison:
  Hash#dup#merge!({}):    25130.2 i/s - 2.13x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-bang-vs-merge-vs-dup-merge-bang.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2201,7 +2201,7 @@ Comparison:
  Hash#dup#merge!({}):    25347.0 i/s - 1.95x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/merge-bang-vs-merge-vs-dup-merge-bang.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2225,7 +2225,7 @@ Comparison:
 
 To sort hash by key.
 
-```
+```sh
 $ ruby -v --jit code/hash/hash-key-sort_by-vs-sort.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2240,7 +2240,7 @@ Comparison:
          sort + to_h:    92722.9 i/s - 2.61x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/hash-key-sort_by-vs-sort.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2255,7 +2255,7 @@ Comparison:
          sort + to_h:    73944.6 i/s - 2.99x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/hash-key-sort_by-vs-sort.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2274,7 +2274,7 @@ Comparison:
 
 Since ruby 2.5, Hash comes with a `slice` method to select hash members by keys.
 
-```
+```sh
 $ ruby -v --jit code/hash/slice-native-vs-before-native.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2295,7 +2295,7 @@ Array#each_w/_object:  2006645.6 i/s - 2.49x  (± 0.00) slower
 Hash#select-include :   705794.0 i/s - 7.07x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/slice-native-vs-before-native.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2316,7 +2316,7 @@ Array#each_w/_object:  1740377.9 i/s - 2.75x  (± 0.00) slower
 Hash#select-include :   647784.4 i/s - 7.39x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/hash/slice-native-vs-before-native.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2346,7 +2346,7 @@ Hash#select-include :   889123.2 i/s - 5.76x  (± 0.00) slower
 > ...In some cases, it reduces the number of lines of code. <br>
 > —— @sferik [rails/rails#16833](https://github.com/rails/rails/pull/16833)
 
-```
+```sh
 $ ruby -v --jit code/proc-and-block/block-vs-to_proc.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2361,7 +2361,7 @@ Comparison:
                Block:    85126.6 i/s - same-ish: difference falls within error
 ```
 
-```
+```sh
 $ ruby -v code/proc-and-block/block-vs-to_proc.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2376,7 +2376,7 @@ Comparison:
                Block:    78324.9 i/s - 1.11x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/proc-and-block/block-vs-to_proc.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2395,7 +2395,7 @@ Comparison:
 
 In MRI Ruby before 2.5, block arguments [are converted to Procs](https://www.omniref.com/ruby/2.2.0/symbols/Proc/yield?#annotation=4087638&line=711), which incurs a heap allocation.
 
-```
+```sh
 $ ruby -v --jit code/proc-and-block/proc-call-vs-yield.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2416,7 +2416,7 @@ Comparison:
           block.call:  9473545.9 i/s - 1.70x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/proc-and-block/proc-call-vs-yield.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2437,7 +2437,7 @@ Comparison:
           block.call:  9541063.8 i/s - 1.41x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/proc-and-block/proc-call-vs-yield.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2465,7 +2465,7 @@ Comparison:
 Note that `String.new` is not the same as the options compared, since it is
 always `ASCII-8BIT` encoded instead of the script encoding (usually `UTF-8`).
 
-```
+```sh
 $ ruby -v --jit code/string/dup-vs-unary-plus.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2480,7 +2480,7 @@ Comparison:
           String#dup:  5183822.4 i/s - 2.35x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/dup-vs-unary-plus.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2495,7 +2495,7 @@ Comparison:
           String#dup:  4857027.5 i/s - 2.24x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/dup-vs-unary-plus.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2512,7 +2512,7 @@ Comparison:
 
 ##### `String#casecmp` vs `String#downcase + ==` [code](code/string/casecmp-vs-downcase-==.rb)
 
-```
+```sh
 $ ruby -v --jit code/string/casecmp-vs-downcase-\=\=.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2527,7 +2527,7 @@ Comparison:
 String#downcase + ==:  7290452.8 i/s - 1.30x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/casecmp-vs-downcase-\=\=.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2542,7 +2542,7 @@ Comparison:
 String#downcase + ==:  6581573.7 i/s - 1.26x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/casecmp-vs-downcase-\=\=.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2559,7 +2559,7 @@ String#downcase + ==:  6495624.9 i/s - 1.34x  (± 0.00) slower
 
 ##### String Concatenation [code](code/string/concatenation.rb)
 
-```
+```sh
 $ ruby -v --jit code/string/concatenation.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2583,7 +2583,7 @@ Comparison:
        String#concat:  6698589.7 i/s - 2.30x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/concatenation.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2607,7 +2607,7 @@ Comparison:
        String#concat:  6253518.7 i/s - 2.18x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/concatenation.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2646,7 +2646,7 @@ longer. For short strings, `String#match?` performs similarly to
 > `error.path.start_with?(path) && error.path.end_with?('.rb', '')`<br>
 > —— @igas [rails/rails#17316](https://github.com/rails/rails/pull/17316)
 
-```
+```sh
 $ ruby -v --jit code/string/start-string-checking-match-vs-start_with.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2664,7 +2664,7 @@ Comparison:
            String#=~:  1425638.0 i/s - 7.17x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/start-string-checking-match-vs-start_with.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2682,7 +2682,7 @@ Comparison:
            String#=~:  1409972.3 i/s - 6.33x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/start-string-checking-match-vs-start_with.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2700,7 +2700,7 @@ Comparison:
            String#=~:  1396253.5 i/s - 6.92x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v --jit code/string/end-string-checking-match-vs-end_with.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2718,7 +2718,7 @@ Comparison:
            String#=~:  1136524.8 i/s - 6.42x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/end-string-checking-match-vs-end_with.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2736,7 +2736,7 @@ Comparison:
            String#=~:  1145606.4 i/s - 5.78x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/end-string-checking-match-vs-end_with.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2756,7 +2756,7 @@ Comparison:
 
 ##### `String#start_with?` vs `String#[].==` [code](code/string/start_with-vs-substring-==.rb)
 
-```
+```sh
 $ ruby -v --jit code/string/start_with-vs-substring-==.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2777,7 +2777,7 @@ Comparison:
    String#[0...n] ==:   475219.3 i/s - 4.46x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/start_with-vs-substring-==.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2798,7 +2798,7 @@ Comparison:
    String#[0...n] ==:   485621.6 i/s - 4.47x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/start_with-vs-substring-==.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2833,7 +2833,7 @@ improvement.
 > :warning: <br>
 > `Regexp#===` is also faster than `String#match` but you need to switch the order of arguments.
 
-```
+```sh
 $ ruby -v --jit code/string/===-vs-=~-vs-match.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2854,7 +2854,7 @@ Comparison:
         String#match:  2978664.7 i/s - 3.64x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/===-vs-=~-vs-match.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2875,7 +2875,7 @@ Comparison:
         String#match:  2825186.2 i/s - 3.34x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/===-vs-=~-vs-match.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2901,7 +2901,7 @@ See [#59](https://github.com/JuanitoFatas/fast-ruby/pull/59) and [#62](https://g
 
 ##### `String#gsub` vs `String#sub` vs `String#[]=` [code](code/string/gsub-vs-sub.rb)
 
-```
+```sh
 $ ruby -v --jit code/string/gsub-vs-sub.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2921,7 +2921,7 @@ String#dup["string"]=:  1412243.1 i/s
          String#gsub:   676325.3 i/s - 2.09x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/gsub-vs-sub.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2941,7 +2941,7 @@ String#dup["string"]=:  1509626.0 i/s
          String#gsub:   769170.9 i/s - 1.96x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/gsub-vs-sub.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -2965,7 +2965,7 @@ String#dup["string"]=:  1649002.4 i/s
 
 > [rails/rails#17257](https://github.com/rails/rails/pull/17257)
 
-```
+```sh
 $ ruby -v --jit code/string/gsub-vs-tr.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2980,7 +2980,7 @@ Comparison:
          String#gsub:   772596.4 i/s - 5.35x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/gsub-vs-tr.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -2995,7 +2995,7 @@ Comparison:
          String#gsub:   784322.2 i/s - 5.08x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/gsub-vs-tr.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3012,7 +3012,7 @@ Comparison:
 
 ##### `Mutable` vs `Immutable` [code](code/string/mutable_vs_immutable_strings.rb)
 
-```
+```sh
 $ ruby -v --jit code/string/mutable_vs_immutable_strings.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3027,7 +3027,7 @@ Comparison:
       Without Freeze: 14685381.8 i/s - 1.63x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/mutable_vs_immutable_strings.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3042,7 +3042,7 @@ Comparison:
       Without Freeze: 12220743.5 i/s - 1.60x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/mutable_vs_immutable_strings.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3062,7 +3062,7 @@ Comparison:
 
 Note that `String#[]` will throw an `IndexError` when given string or regexp not matched.
 
-```
+```sh
 $ ruby -v --jit code/string/sub\!-vs-gsub\!-vs-\[\]\=.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3089,7 +3089,7 @@ String#gsub!'string':   579396.2 i/s - 2.80x  (± 0.00) slower
 String#gsub!/regexp/:   419003.8 i/s - 3.87x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/sub\!-vs-gsub\!-vs-\[\]\=.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3116,7 +3116,7 @@ String#gsub!'string':   579907.2 i/s - 2.85x  (± 0.00) slower
 String#gsub!/regexp/:   394307.7 i/s - 4.19x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/sub\!-vs-gsub\!-vs-\[\]\=.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3148,7 +3148,7 @@ String#gsub!/regexp/:   434939.0 i/s - 4.13x  (± 0.00) slower
 [Ruby 2.5 introduced](https://bugs.ruby-lang.org/issues/12694) `String#delete_prefix`.
 Note that this can only be used for removing characters from the start of a string.
 
-```
+```sh
 $ ruby -v --jit code/string/sub-vs-delete_prefix.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3163,7 +3163,7 @@ String#delete_prefix:  6856606.6 i/s
           String#sub:  1078236.3 i/s - 6.36x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/sub-vs-delete_prefix.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3178,7 +3178,7 @@ String#delete_prefix:  6422441.4 i/s
           String#sub:  1029661.2 i/s - 6.24x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/sub-vs-delete_prefix.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3200,7 +3200,7 @@ as a counterpart to `delete_prefix`. The performance gain over `chomp` is
 small and during some runs the difference falls within the error margin.
 Note that this can only be used for removing characters from the end of a string.
 
-```
+```sh
 $ ruby -v --jit code/string/sub-vs-chomp-vs-delete_suffix.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3218,7 +3218,7 @@ String#delete_suffix:  6920473.1 i/s
           String#sub:  1026680.9 i/s - 6.74x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/sub-vs-chomp-vs-delete_suffix.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3236,7 +3236,7 @@ String#delete_suffix:  6356758.4 i/s
           String#sub:  1031396.0 i/s - 6.16x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/sub-vs-chomp-vs-delete_suffix.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3258,7 +3258,7 @@ String#delete_suffix:  6411497.7 i/s
 
 [Ruby 2.4.0 introduced `unpack1`](https://bugs.ruby-lang.org/issues/12752) to skip creating the intermediate array object.
 
-```
+```sh
 $ ruby -v --jit code/string/unpack1-vs-unpack\[0\].rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3273,7 +3273,7 @@ Comparison:
     String#unpack[0]:  6085817.1 i/s - 1.30x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/unpack1-vs-unpack\[0\].rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3288,7 +3288,7 @@ Comparison:
     String#unpack[0]:  5578334.9 i/s - 1.26x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/unpack1-vs-unpack\[0\].rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3307,7 +3307,7 @@ Comparison:
 
 The code is tested against contiguous spaces but should work for other chars too.
 
-```
+```sh
 $ ruby -v --jit code/string/remove-extra-spaces-or-other-chars.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3322,7 +3322,7 @@ Comparison:
  String#gsub/regex+/:    52237.4 i/s - 25.61x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/remove-extra-spaces-or-other-chars.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3337,7 +3337,7 @@ Comparison:
  String#gsub/regex+/:    54487.0 i/s - 24.36x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/string/remove-extra-spaces-or-other-chars.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3358,7 +3358,7 @@ Comparison:
 
 When expecting well-formatted data from e.g. an API, `iso8601` is faster and will raise an `ArgumentError` on malformed input.
 
-```
+```sh
 $ ruby -v --jit code/time/iso8601-vs-parse.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3373,7 +3373,7 @@ Comparison:
           Time.parse:    74029.7 i/s - 3.28x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/time/iso8601-vs-parse.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3388,7 +3388,7 @@ Comparison:
           Time.parse:    73663.4 i/s - 3.24x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/time/iso8601-vs-parse.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
@@ -3409,7 +3409,7 @@ Comparison:
 
 `cover?` only check if it is within the start and end, `include?` needs to traverse the whole range.
 
-```
+```sh
 $ ruby -v --jit code/range/cover-vs-include.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3430,7 +3430,7 @@ Comparison:
       range#include?:   103831.8 i/s - 56.93x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/range/cover-vs-include.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
 Warming up --------------------------------------
@@ -3451,7 +3451,7 @@ Comparison:
        range#member?:   104205.5 i/s - 45.42x  (± 0.00) slower
 ```
 
-```
+```sh
 $ ruby -v code/range/cover-vs-include.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
 Warming up --------------------------------------
