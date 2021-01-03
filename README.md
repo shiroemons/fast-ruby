@@ -265,20 +265,105 @@ module_eval with string:     2390.3 i/s - 1.61x  (± 0.00) slower
 Ruby's [Exception2MessageMapper module](http://ruby-doc.org/stdlib-2.2.0/libdoc/e2mmap/rdoc/index.html) allows one to define and raise exceptions with predefined messages.
 
 ```sh
+$ ruby -v --jit code/general/raise-vs-e2mmap.rb
+ruby 3.0.0p0 (2020-12-25 revision 95aff21468) +JIT [x86_64-darwin20]
+Warming up --------------------------------------
+Ruby exception: E2MM#Raise
+                         2.630k i/100ms
+Ruby exception: Kernel#raise
+                        96.914k i/100ms
+Calculating -------------------------------------
+Ruby exception: E2MM#Raise
+                         27.406k (± 4.3%) i/s -    136.760k in   5.000138s
+Ruby exception: Kernel#raise
+                        973.334k (± 2.1%) i/s -      4.943M in   5.080395s
+
+Comparison:
+Ruby exception: Kernel#raise:   973333.6 i/s
+Ruby exception: E2MM#Raise:    27405.7 i/s - 35.52x  (± 0.00) slower
+
+Warming up --------------------------------------
+Custom exception: E2MM#Raise
+                         2.690k i/100ms
+Custom exception: Kernel#raise
+                        93.644k i/100ms
+Calculating -------------------------------------
+Custom exception: E2MM#Raise
+                         27.858k (± 1.9%) i/s -    139.880k in   5.022891s
+Custom exception: Kernel#raise
+                        973.016k (± 2.0%) i/s -      4.869M in   5.006597s
+
+Comparison:
+Custom exception: Kernel#raise:   973016.1 i/s
+Custom exception: E2MM#Raise:    27858.4 i/s - 34.93x  (± 0.00) slower
+```
+
+```sh
 $ ruby -v code/general/raise-vs-e2mmap.rb
 ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin20]
-<internal:/Users/xxxxxx/.rbenv/versions/3.0.0/lib/ruby/3.0.0/rubygems/core_ext/kernel_require.rb>:85:in `require': cannot load such file -- e2mmap (LoadError)
-	from <internal:/Users/xxxxxx/.rbenv/versions/3.0.0/lib/ruby/3.0.0/rubygems/core_ext/kernel_require.rb>:85:in `require'
-	from code/general/raise-vs-e2mmap.rb:2:in `<main>'
+Warming up --------------------------------------
+Ruby exception: E2MM#Raise
+                         2.777k i/100ms
+Ruby exception: Kernel#raise
+                        94.880k i/100ms
+Calculating -------------------------------------
+Ruby exception: E2MM#Raise
+                         27.551k (± 2.3%) i/s -    138.850k in   5.042529s
+Ruby exception: Kernel#raise
+                        957.506k (± 1.9%) i/s -      4.839M in   5.055388s
+
+Comparison:
+Ruby exception: Kernel#raise:   957506.3 i/s
+Ruby exception: E2MM#Raise:    27551.0 i/s - 34.75x  (± 0.00) slower
+
+Warming up --------------------------------------
+Custom exception: E2MM#Raise
+                         2.800k i/100ms
+Custom exception: Kernel#raise
+                        94.248k i/100ms
+Calculating -------------------------------------
+Custom exception: E2MM#Raise
+                         27.530k (± 2.0%) i/s -    140.000k in   5.087435s
+Custom exception: Kernel#raise
+                        946.575k (± 2.3%) i/s -      4.807M in   5.080767s
+
+Comparison:
+Custom exception: Kernel#raise:   946575.2 i/s
+Custom exception: E2MM#Raise:    27529.9 i/s - 34.38x  (± 0.00) slower
 ```
 
 ```sh
 $ ruby -v code/general/raise-vs-e2mmap.rb
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-darwin19]
-Traceback (most recent call last):
-	2: from code/general/raise-vs-e2mmap.rb:2:in `<main>'
-	1: from /Users/moritasatoshi/.rbenv/versions/2.7.2/lib/ruby/2.7.0/rubygems/core_ext/kernel_require.rb:92:in `require'
-/Users/moritasatoshi/.rbenv/versions/2.7.2/lib/ruby/2.7.0/rubygems/core_ext/kernel_require.rb:92:in `require': cannot load such file -- e2mmap (LoadError)
+Warming up --------------------------------------
+Ruby exception: E2MM#Raise
+                         2.918k i/100ms
+Ruby exception: Kernel#raise
+                       109.820k i/100ms
+Calculating -------------------------------------
+Ruby exception: E2MM#Raise
+                         28.104k (± 3.1%) i/s -    142.982k in   5.092739s
+Ruby exception: Kernel#raise
+                          1.106M (± 2.6%) i/s -      5.601M in   5.067932s
+
+Comparison:
+Ruby exception: Kernel#raise:  1105916.1 i/s
+Ruby exception: E2MM#Raise:    28104.3 i/s - 39.35x  (± 0.00) slower
+
+Warming up --------------------------------------
+Custom exception: E2MM#Raise
+                         2.872k i/100ms
+Custom exception: Kernel#raise
+                       110.694k i/100ms
+Calculating -------------------------------------
+Custom exception: E2MM#Raise
+                         28.846k (± 2.2%) i/s -    146.472k in   5.080261s
+Custom exception: Kernel#raise
+                          1.090M (± 3.8%) i/s -      5.535M in   5.084172s
+
+Comparison:
+Custom exception: Kernel#raise:  1090253.0 i/s
+Custom exception: E2MM#Raise:    28845.7 i/s - 37.80x  (± 0.00) slower
 ```
 
 ##### `loop` vs `while true` [code](code/general/loop-vs-while-true.rb)
